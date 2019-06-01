@@ -2,6 +2,12 @@
   box-sizing: border-box;
 }
 
+/*---------------Body-------------*/
+
+main{
+  height: 100%;
+}
+
 html {
   height: 100%;
 }
@@ -15,6 +21,8 @@ body {
   50vh 
   50vh/ 1fr 1fr 1fr;
 }
+
+/*----------------Header--------------*/
 
 header {
 align-items: center;
@@ -36,20 +44,9 @@ span {
   color: #FFC30C;
 }
 
-section {
-  background-color: #587A8A;
-  grid-area: side;
-  display: flex;
-}
-
 form {
   color: #F3F6F7;
   border: 1
-}
-
-button {
-  font-family :'Open Sans', sans-serif;
-  font-weight: 700;
 }
 
 .search-form {
@@ -59,6 +56,21 @@ button {
   margin-top: 1.5%;
 }
 
-main{
-  height: 100%;
+/*----------------Main------------*/
+
+aside {
+  display: flex;
+  
+}
+
+
+section {
+  background-color: #587A8A;
+  grid-area: side;
+  display: flex;
+}
+
+button {
+  font-family :'Open Sans', sans-serif;
+  font-weight: 700;
 }

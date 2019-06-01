@@ -3,48 +3,60 @@
   <head>
     <title>Check Yo'Self</title>
       <link rel='stylesheet' type= 'text/css' href= 'reset.css'>
-      <link rel='stylesheet' type= 'text/css' href= 'styles.css'>
+      <link rel='stylesheet' type= 'text/css' href= 'style.css'>
       <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&display=swap" 
       rel="stylesheet">
       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" 
       integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" 
       crossorigin="anonymous">
   </head>
-  <body>
-    <header>
-      <h1>CHECK <span>YO'</span> SELF</h1>
-      <form class='search-form'>
-        <span class="fas fa-search search-icon"></span>
-        <input type="text" class="search-input">
-      </form>
-    </header>
-    <main>
-      <aside>
-        <section class="input-section">
-          <form>
-            <label class="title-label">Task Title</label>
-            <input type="text" class="title-input">
-          </form>
-          <ul>
-          </ul>
-          <form>
-            <label>Task Item</label>
-            <div class="item-input-container">
-            <input type="text" class="item-input">
-            <button class="plus-button">+</button>
-          </div>
-          </form>
-          <form>
-            <button class="make-task-button">Make Task List</button>
-            <button class="clear-all-button">Clear All</button>
-          </form>
+    <body>
+      <header>
+        <h1>CHECK <span>YO'</span> SELF</h1>
+        <form class='search-form'>
+          <span class="fas fa-search search-icon"></span>
+          <input type="text" class="input search-input">
+        </form>
+      </header>
+      <nav>
+        <section class="title-input-container">
+          <label class="task-title-label">Task Title
+          <input type="text" class="input title-input">
+          </label>
+        </section>
+        <section class="task-input-container">
+          <label class="task-item-label">Task Item
+          <input type="text" class="input item-input">
+          <button class="btn plus-btn">+</button>
+          </label>
+          <button class="btn make-task-btn">Make Task List</button>
+          <button class="btn clear-all-btn">Clear All</button>
         </section>
         <section class="filter-section">
           <button class="filter-button">Filter By Urgency</button>
         </section> 
-    </aside>
-  </main>
-</body>
-<script type='text/javascript' src='todo-list.js'></script>
-<script type='text/javascript'src='main.js'></script>
+      </nav>
+      <main>
+      </main>
+      <template class="task-card">
+        <section class="task-card" data-id=${id}>
+          <div class="card-top">
+            <h2>Task Title</h2>
+          </div>
+          <div class="card-middle">
+            <img>
+            <p></p>
+          </div>
+          <div class="card-bottom">
+            <img src="" class="img img-urgent" alt="urgent-icon" />
+            <label class="card-label">
+              <img src="images/delete.svg" class="img img-delete" alt="delete-icon" />
+              DELETE
+            </label>
+          </div>
+        </section>
+      </template>
+    <script type='text/javascript' src='todo-list.js'></script>
+    <script type='text/javascript'src='main.js'></script>
+  </body>
 </html>
