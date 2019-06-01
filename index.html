@@ -1,54 +1,90 @@
 <!DOCTYPE html>
 <html>
   <head>
-      <link rel='stylesheet' type= 'text/css' href= 'reset.css'>
-      <link rel='stylesheet' type= 'text/css' href= 'styles.css'>
+    <title>Check Yo'Self</title>
+      <link rel="stylesheet" type= "text/css" href= "reset.css">
+      <link rel="stylesheet" type= "text/css" href= "style.css">
       <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&display=swap" 
       rel="stylesheet">
-      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" 
-      integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" 
-      crossorigin="anonymous">
   </head>
+    <body>
 
-  <body>
-    <header>
-      <h1>
-        CHECK YO'SELF
-      </h1>
-      <label class='search-form'>
-        <span class="fas fa-search search-icon"></span>
-        <input type="text" class="search-input">
-      </label>
-    </header>
-    <main>
-      <aside>
-        <section class="input-section">
-          <form>
-            <label class="title-label">Task Title</label>
-            <input type="text" class="title-input">
-          </form>
-          <ul>
+      <header>
+        <h1>CHECK <span>YO'</span> SELF</h1>
+        <form class="search-form">
+          <input type="text" class="input search-input" placeholder="Search" />
+          <button class="search-btn">
+            <img 
+              src="images/search.svg" 
+              alt="search-icon" 
+              class="img-search" /></button>
+        </form>
+      </header>
 
-          </ul>
-          <form>
-            <label>Task Item</label>
-            <input type="text" class="item-input">
-          </form>
-          <form>
-            <button class="make-button">Make Task List</button>
-            <button class="clear-button">Clear All</button>
-          </form>
+      <nav>
+          <label class="title-label">Task Title
+          <input type="text" class="input title-input">
+          </label>
+        <section class="input-container">
+          <label class="item-label">Task Item
+          <input type="text" class="input item-input">
+          <button class="btn plus-btn" id="plus-btn" disabled>+</button>
+          </label>
+          <button class="btn make-task-btn">Make Task List</button>
+          <button class="btn clear-all-btn">Clear All</button>
         </section>
         <section class="filter-section">
-          <button class="filter-button">FIlter By Urgency</button>
+          <button class="btn filter-btn">Filter By Urgency</button>
+        </section> 
+      </nav>
+
+      <main>
+          <article id="task-card" data-id=${id}>
+            <header class="card-top">
+              <h2>Task Title</h2>
+            </header>
+            <output class="card-body">
+              <h3
+                id='js-card-title' 
+                contenteditable='true'>
+                ${title}
+              </h3>
+              <img src="images/checkbox.svg" 
+                alt="checkbox" 
+                class="checkbox"
+                id="js-checkbox-svg" />
+              <p
+                id='js-card-body' 
+                contenteditable='true'>
+                ${body}
+              </p>
+            </output>
+            <footer class="card-bottom">
+                <img 
+                  src="images/urgent.svg" 
+                  alt="urgent-icon" 
+                  class="urgent"
+                  id="js-urgent-svg" />
+                <p class="urgent-text">URGENT;
+                <span class="urgent-value" 
+                  id="js-urgent-value">
+                  ${urgent}
+                </span>
+                </p>
+                <img 
+                  src="images/delete.svg" 
+                  alt="delete-icon" 
+                  class="img-delete" 
+                  id="js-delete-svg" />
+                <p class="delete-text">DELETE;
+                </p>
+              </footer>
+          </article>
+        <section class="card-section masonry" id="card-section">
         </section>
-      </aside>
-    </section>
-    </main>
-    <nav>
+      </main>
 
-    </nav>
-
-    </main>
+    <script type='text/javascript' src='todo-list.js'></script>
+    <script type='text/javascript'src='main.js'></script>
   </body>
 </html>
