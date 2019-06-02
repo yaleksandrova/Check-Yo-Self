@@ -236,13 +236,13 @@ article {
   margin: 0px;
 }
 
-.urgent-img {
+.urgent {
   display: inline-block;
   height: 1.5em;
   margin: 0px 15px;
 }
 
-.img-delete {
+.delete {
   display: inline-block;
   height: 1.5em;
   margin: 0px 15px;
