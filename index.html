@@ -13,61 +13,46 @@
         <form class="search-form">
           <input type="text" class="search-input" placeholder="Search" />
           <button class="search-btn">
-            <img 
-              src="images/search.svg" 
-              alt="search-icon" 
-              class="img-search" /></button>
+            <img src="images/search.svg" alt="search-icon" class="img-search" /></button>
         </form>
       </header>
 
-      <nav>
+      <nav class="nav">
           <label class="title-label">Task Title
           <input type="text" class="title-input">
           </label>
         <section class="input-container">
           <label class="item-label">Task Item
           <input type="text" class="item-input">
-          <button class="plus-btn" disabled>+</button>
+          <button class="plus-btn" disabled="true">+</button>
           </label>
-          <button class="make-task-btn">Make Task List</button>
-          <button class="clear-all-btn">Clear All</button>
+          <button class="make-task-btn" disabled="true">Make Task List</button>
+          <button class="clear-all-btn" disabled="true">Clear All</button>
         </section>
         <section class="filter-section">
           <button class="filter-btn">Filter By Urgency</button>
         </section> 
       </nav>
-
       <main>
-        <article class="task-card" data-id=${id}>
+        <article class="task-card" data-id=${toDoList.id}>
           <header class="card-top">
-            <h2>Task Title</h2>
+            <h2 class="task-title">Task Title</h2>
           </header>
           <output class="card-body">
             <ul class="task-list">
               <li class="task-checkbox">Don't ever play yourself.</li>
               <li class="task-checkbox">Every chance I get, I water the plants.</li>
               <li class="task-checkbox">Lion! Cloth talk.</li>
-              <img src="images/checkbox.svg" width="10" height="10"
-                alt="checkbox" 
-                class="checkbox-img"
-                id="js-checkbox-svg" />
+              <img src="images/checkbox.svg" width="10" height="10" alt="checkbox" class="checkbox-img" id="js-checkbox-svg" />
             </ul>
           </output>
           <footer class="card-bottom">
             <button class="urgent-btn">
-              <img 
-                src="images/urgent.svg" 
-                alt="urgent-icon" 
-                class="urgent"
-                id="js-urgent-svg" />
+              <img src="images/urgent.svg" alt="urgent-icon" class="urgent" id="js-urgent-svg" />
               <p class="urgent-text">URGENT</p>
             </button>
             <button class="delete-btn">
-              <img 
-                src="images/delete.svg" 
-                alt="delete-icon" 
-                class="delete" 
-                id="js-delete-svg" />
+              <img src="images/delete.svg" alt="delete-icon" class="delete" id="js-delete-svg" />
               <p class="delete-text">DELETE</p>
             </button>
             </footer>

@@ -2,22 +2,80 @@ var toDoArray =  JSON.parse(localStorage.getItem("toDo")) || [];
 var searchInput = document.querySelector(".search-input");
 var titleInput = document.querySelector(".title-input");
 var itemInput = document.querySelector(".item-input");
-var addBtn = document.querySelector(".plus-btn");
+var addTaskBtn = document.querySelector(".plus-btn");
 var makeTaskBtn = document.querySelector(".make-task-btn");
 var clearAllBtn = document.querySelector(".clear-all-btn");
 var filterBtn = document.querySelector(".filter-btn");
 var urgentBtn = document.querySelector(".urgent-btn");
 var deleteBtn = document.querySelector(".delete-btn");
 var taskCard = document.querySelector(".task-card");
-
+var removeCard = document.querySelector(".nav");
 
 //Event Listeners
-main.addEventListener('click', handleCardActions);
-makeTaskBtn.addEventListener('click', instantiateTask);
+
+addTaskBtn.addEventListener('click', addNewTask);
+taskCard.addEventListener('click', removeFromTaskList);
+makeTaskBtn.addEventListener('click', addNewTask);
+
+clearAllBtn.addEventListener('keyup', clearAll);
+
 titleInput.addEventListener('keyup', disableBtns);
 itemInput.addEventListener('keyup', disableBtns);
-searchInput.addEventListener('keydown', filterTasks);
+itemInput.addEventListener('keyup', disableBtns);
 
+function addNewTask() {
+  var ul = document.querySelector();
+  var newTask = new Task(titleInput.value, taskInput.value, Date.now(), );
+  clearInputs();
+  toDoArray.push(newTask);
+  newTask.saveToStorage(toDoArray);
+  addBtn.disabled = false;
+  createNewCard(newTask);
+};
+
+function createNewCard(toDoList) {
+  var listTasks = generateToDoList(toDoList);
+  taskCard.insertAdjacentHTML('afterbegin', `<article class="task-card" data-id=${toDoList.id}>
+    <header class="card-top">
+      <h2 class="task-title">${toDoList.title}</h2>
+    </header>
+    <output class="card-body">
+          <ul class="task-list">
+          ${listTasks}
+          </ul>
+    </output>
+    <footer class="card-bottom">
+      <button class="urgent-btn">
+        <img src="images/urgent.svg" alt="urgent-icon" class="urgent" id="js-urgent-svg" />
+        <p class="urgent-text">URGENT</p>
+      </button>
+      <button class="delete-btn">
+          <img src="images/delete.svg" alt="delete-icon" class="delete" id="js-delete-svg" />
+          <p class="delete-text">DELETE</p>
+      </button>
+    </footer>
+    </article>`)
+};
+
+function clearAll(e){
+  var id = parseInt(e.target.parentElement.parentElement.dataset.id);
+  e.target.parentElement.parentElement.remove();
+	var toDo = findTask(id);
+	toDo.deleteFromStorage();
+};
+
+function removeFromTaskList(e) {
+  if (e.target.className === "delete") {
+    removeCard(e);
+  } else if (e.target.className === "urgent") {
+  	urgency(e, e.target.parentNode.parentNode.dataset.id);
+  };
+
+function makeTaskList(id) {
+  return toDoArray.find(function(toDo) {	
+    return toDo.id === id
+  })
+};
 
 function saveEdit(e) {
   var element = e.target.id === ".title-input" ? 'title' : 'urgency'
@@ -39,22 +97,6 @@ function createCardsOnLoad() {
   toDoArray = newArray;
 };
 
-function createNewCard(task) {
-  var template = document.getElementById('new-card-template');
-  var clone = template.content.cloneNode(true);
-  var star = idea.star ? 'Images/star-active.svg' : 'Images/star.svg';
-  clone.getElementById('article-card').setAttribute('data-id', idea.id);
-  clone.getElementById('js-favoriteBtn').setAttribute('src', star);
-  clone.getElementById('js-idea-title').innerText = task.title;
-  clone.getElementById('js-idea-title').addEventListener('keyup', saveEdit);
-  clone.getElementById('js-idea-title').addEventListener('blur', saveEdit);
-  clone.getElementById('js-idea-body').innerText = task.task;
-  clone.getElementById('js-idea-body').addEventListener('keyup', saveEdit);
-  clone.getElementById('js-idea-body').addEventListener('blur', saveEdit);
-  clone.getElementById('js-quality-value').innerText = task.urgency;
-  main.insertBefore(clone, bottomSection.firstChild);
-};
-
 createCardsOnLoad();
 
 function findTheIndex(id) {
@@ -67,23 +109,20 @@ function findTheIndex(id) {
   return findTheIndex;
 };
 
-function instantiateTask() {
-  var newTask = new Task(titleInput.value, taskInput.value, Date.now(), );
-  clearInputs();
-  toDoArray.push(newTask);
-  newTask.saveToStorage(toDoArray);
-  saveBtn.disabled = true;
-  createNewCard(newTask);
-};
 
 function clearInputs() {
   titleInput.value = '';
   bodyInput.value = '';
 };
 
-function disableBtns() {
+function disableAddBtn() {
   var disabledBtn = titleInput.value === '' || taskInput.value === '';
-  saveBtn.disabled = disabledBtn;
+  addBtn.disabled = disabledBtn;
+};
+
+function disableClearBtn() {
+  var Btn = titleInput.value === '' || taskInput.value === '';
+  clearBtn.disabled = disabledBtn;
 };
 
 // //function editTaskCard() {
@@ -93,28 +132,6 @@ function disableBtns() {
 //   }
 // };//
 
-function findTask(id) {
-  return toDoArray.find(function(toDo) {	
-    return toDo.id === id
-  })
-};
-
-function handleCardActions(e) {
-  if (e.target.className === "delete") {
-    removeCard(e);
-  } else if (e.target.className === "urgent") {
-  	urgency(e, e.target.parentNode.parentNode.dataset.id);
-  // } else if (e.target.className === 'up-arrow') {
-//     changeQuality(e, e.target.parentNode.parentNode.dataset.id);
-//   }
-// };
-
-function removeCard(e){
-  var id = parseInt(e.target.parentElement.parentElement.dataset.id);
-  e.target.parentElement.parentElement.remove();
-	var toDo = findTask(id);
-	toDo.deleteFromStorage();
-};
 
 // function filterTask(e) {
 //   var searchTextField = e.target.value.toLowerCase();
