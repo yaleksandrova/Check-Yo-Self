@@ -21,7 +21,6 @@ body {
   height: 100%;
 }
 
-
 /*--------------Header------------*/
 
 header {
@@ -48,12 +47,16 @@ form {
   border: 0;
 }
 
-header form {
+.search-form {
   display: flex;
   align-items: center;
+  grid-column: 3/4;
+  font-size: 2em;
+  width: 89%;
+  height: 77%;
 }
 
-header input {
+.search-input {
   font-size: 16px;
   border: none;
   height: 15px;
@@ -63,99 +66,92 @@ header input {
   align-items: center;
   justify-content: space-around; 
   padding: 15px 6px;
- 
-}
-
-
-header form {
-  grid-column: 3/4;
-  display: flex;
-  font-size: 2em;
-  width: 100%;
-  height: 87%;
-}
-
-header img {
-  background-color: #C7D3D8;
-  height: 2.8em;
-  padding: 8px;
-  margin: -5px 0px 0px -23px;
-  text-rendering: auto;
-    line-height: 1;
-    -webkit-font-smoothing: antialiased;
 }
 
 .search-btn {
   display: inline-block;
   height: 2.8em;
-	font-size: 15px;
+  font-size: 15px;
   margin-left: -330px;
   padding: 5px;
   width: 10%;
   border: none;
 }
+
+.img-search {
+  background-color: #C7D3D8;
+  height: 2.8em;
+  padding: 8px;
+  margin: -5px 0px 0px -5px;
+  text-rendering: auto;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+}
+
 /*----------------Nav------------*/
 
 nav {
   grid-area: nav;
   background-color: #587A8A;
-  display: flex;
-  height: 100vh;
+  height: 100%;
   width: 100%;
   border-right: 2px solid #3C6577;
-  align-content: center;
-
-	flex-direction: column;	
-	justify-content: center;
+  flex-direction: column;	
+  padding: 5px;
+  padding-top: 35px;
 }
 
-nav section {
-  display: grid;
+.title-input,
+.item-input {
+  border-right: 0px;
+  border-radius: 2.5px 0px 0px 2.5px;
+  align-items: center;
   flex-direction: column;
+  font-size: 1em;
+  height: 2.5em;
+  width: 95%;
+  border: 1px solid #1F1F3D;
+  margin: 10px 10px 15px 10px;
+	padding: 5px;
+}
+
+.title-label, 
+.item-label {
+  display: flex;
+  flex-direction: column;
+  display: inline-block;
+  color: #F3F6F7;
+  font-size: 1em;
+  margin-bottom: 25px 0px 5px 0px;
+  font-weight: 400;
   width: 95%;
 }
 
-nav label {
-  display: inline-block;
-  color: #F3F6F7;
-  font-size: 16px;
-  margin-bottom: 25px 0px 5px 0px;
-  font-weight: 400;
-  width: 100%;
-}
-
-nav input {
-  margin: 0px 0px 5px 0px;
-  height: 2.5em;
-  width: 99%;
-  border: 1px solid #1F1F3D;
-}
-
-nav img {
+.plus-btn {
   border: none;
   height: 2.25em;
   padding: 7.5px;
   width: 30px;
 }
 
-nav button {
+.plus-btn,
+.make-task-btn,
+.clear-all-btn,
+.filter-btn {
   border: none;
-  border-radius: 2%;
   background-color: #1f1f3d;
   color: #FFFFFF;
-  font-size: 18px;
+  font-size: 1em;
   height: 2.5em;
-  margin: 15px 0px 10px 0px;
+  width: 92%;
+  margin: 27px 10px 15px 10px;
+  cursor: default;
 }
 
-.input-container {
-  display: flex;
-}
-
-.item-input {
-  border-right: 0px;
-  border-radius: 2.5px 0px 0px 2.5px;
-  width: 84%;
+.filter-section {
+  border-top: 2px solid #3C6577;
+  margin: 25px 0px 10px 0px;
+  width: 100%;
 }
 
 .plus-btn {
@@ -167,18 +163,10 @@ nav button {
   width: 15%;
 }
 
-.filter-section {
-  border-top: 2px solid #3C6577;
-  margin: 25px 0px 10px 0px;
-  width: 100%;
+.input-container {
+  display: flex;
+  flex-direction: column;
 }
-
-.filter-btn {
-  margin: 35px 0px 0px 0px;
-}
-
-
-
 
 /*--------------Main---------------*/
 main {
@@ -187,8 +175,9 @@ main {
   background-color: #F3F6F7;
   padding: 35px;
   height: 100%;
+  columns: 2 250px;
+  column-gap: 30px;
 }
-
 
 main p {
   display: flex;
@@ -199,23 +188,40 @@ article {
   background-color: #FFF;
   border: 1.5px solid #C7D3D8;
   height: max-content;
-  width: 45%;
+  width: 40%;
 }
-article header {
+
+.card-top {
   background-color: #FFF;
   border-bottom: 1.5px solid #C7D3D8;
+  border-right: solid #C7D3D8;
   color: #000;
   font-weight: 400;
-  width: 99%;
+  width: 40%;
+  padding: 10px;
   margin-left: 1px;
-  height:
-}
-
-article output {
+  width: 100%;
 
 }
 
-article footer {
+.tast-list {
+  list-style: none;
+  margin: 10px;
+  font-size: 1em;
+}
+
+.task-list:before {
+  content: '';
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+  background-image: url(images/checkbox.svg);
+}
+
+.checkbox-img {
+  margin-right: 10px;
+}
+.card-bottom {
   display: flex;
   justify-content: space-between;
   border-top: 1.5px solid #C7D3D8;
@@ -223,13 +229,25 @@ article footer {
   margin-left: 1px;
 }
 
-article footer img {
+.urgent-text {
+  color: #3C6577;
+  font-size: 12px;
+  margin: 0px;
+}
+
+.urgent-img {
   display: inline-block;
   height: 1.5em;
   margin: 0px 15px;
 }
 
-article footer p {
+.img-delete {
+  display: inline-block;
+  height: 1.5em;
+  margin: 0px 15px;
+}
+
+.delete-text {
   color: #3C6577;
   font-size: 12px;
   margin: 0px;

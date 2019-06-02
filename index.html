@@ -12,7 +12,7 @@
       <header>
         <h1>CHECK <span>YO'</span> SELF</h1>
         <form class="search-form">
-          <input type="text" class="input search-input" placeholder="Search" />
+          <input type="text" class="search-input" placeholder="Search" />
           <button class="search-btn">
             <img 
               src="images/search.svg" 
@@ -23,18 +23,19 @@
 
       <nav>
           <label class="title-label">Task Title
-          <input type="text" class="input title-input">
+          <input type="text" class="title-input">
           </label>
         <section class="input-container">
           <label class="item-label">Task Item
-          <input type="text" class="input item-input">
-          <button class="btn plus-btn" id="plus-btn" disabled>+</button>
+          <input type="text" class="item-input">
+          <button class="plus-btn" id="plus-btn" disabled>+</button>
+          <i class="fas fa-plus-square"></i>
           </label>
-          <button class="btn make-task-btn">Make Task List</button>
-          <button class="btn clear-all-btn">Clear All</button>
+          <button class="make-task-btn">Make Task List</button>
+          <button class="clear-all-btn">Clear All</button>
         </section>
         <section class="filter-section">
-          <button class="btn filter-btn">Filter By Urgency</button>
+          <button class="filter-btn">Filter By Urgency</button>
         </section> 
       </nav>
 
@@ -44,40 +45,33 @@
               <h2>Task Title</h2>
             </header>
             <output class="card-body">
-              <h3
-                id='js-card-title' 
-                contenteditable='true'>
-                ${title}
-              </h3>
-              <img src="images/checkbox.svg" 
+              <ul class="task-list">
+                <li class="task-checkbox">Don't ever play yourself.</li>
+                <li class="task-checkbox">Every chance I get, I water the plants.</li>
+                <li class="task-checkbox">Lion! Cloth talk.</li>
+                <img src="images/checkbox.svg" width="10" height="10"
                 alt="checkbox" 
-                class="checkbox"
+                class="checkbox-img"
                 id="js-checkbox-svg" />
-              <p
-                id='js-card-body' 
-                contenteditable='true'>
-                ${body}
-              </p>
+              </ul>
             </output>
             <footer class="card-bottom">
+              <label class="urgent-value">
                 <img 
-                  src="images/urgent.svg" 
-                  alt="urgent-icon" 
-                  class="urgent"
-                  id="js-urgent-svg" />
-                <p class="urgent-text">URGENT;
-                <span class="urgent-value" 
-                  id="js-urgent-value">
-                  ${urgent}
-                </span>
-                </p>
+                src="images/urgent.svg" 
+                alt="urgent-icon" 
+                class="urgent-img"
+                id="js-urgent-svg" />
+                <p class="urgent-text">URGENT</p>
+              </label>
+              <label class="delete-value">
                 <img 
                   src="images/delete.svg" 
                   alt="delete-icon" 
                   class="img-delete" 
                   id="js-delete-svg" />
-                <p class="delete-text">DELETE;
-                </p>
+                <p class="delete-text">DELETE</p>
+              </label>
               </footer>
           </article>
         <section class="card-section masonry" id="card-section">
