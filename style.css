@@ -133,11 +133,12 @@ nav {
   padding: 7.5px;
   width: 30px;
 }
+nav button:hover {
+	background-color: #D14119;
+	border-left: 4px #F58E72 solid;
+}
 
-.plus-btn,
-.make-task-btn,
-.clear-all-btn,
-.filter-btn {
+nav button {
   border: none;
   background-color: #1f1f3d;
   color: #FFFFFF;
