@@ -11,25 +11,29 @@ var deleteItemBtn = document.querySelector("#nav-task-input");
 var taskCard = document.querySelector(".task-card");
 var removeCard = document.querySelector(".nav");
 var navTaskContainer = document.querySelector("#input-container");
+// var navTaskText = document.querySelectorAll(".nav-task-text");
+var main = document.querySelector("main")
 
 //Event Listeners
 navTaskContainer.addEventListener('click', deleteTask);
 addTaskBtn.addEventListener('click', makeItem);
-// taskCard.addEventListener('click', removeFromTaskList);
 makeTaskList.addEventListener('click', createNewCard);
-
-// clearAllBtn.addEventListener('keyup', clearAll);
-
-// titleInput.addEventListener('keyup', disableBtns);
 itemInput.addEventListener('keyup', enableTaskBtn);
+
+
+
+// taskCard.addEventListener('click', removeFromTaskList);
+// clearAllBtn.addEventListener('keyup', clearAll);
+// titleInput.addEventListener('keyup', disableBtns);
 // itemInput.addEventListener('keyup', disableBtns);
 
 
 function makeItem() {
+  enableTaskBtn();
   navTaskContainer.innerHTML =
   `<section class="taskContainer">
     <input class="nav-task-delete-btn" id="nav-task-input" type="image" src="images/delete.svg" alt="delete button">
-    <p class="nav-task-text" id="nav-task-text">${itemInput.value}
+    <p class="nav-task-text">${itemInput.value}
     </p></input>
     </section>
     `+ navTaskContainer.innerHTML;
@@ -43,11 +47,44 @@ function deleteTask(e) {
 };
 
 function enableTaskBtn(){
-  if (itemInput.value == true) {
+  if (itemInput.value === "") {
     addTaskBtn.disabled = !addTaskBtn.disabled; 
   }
 }
-// make it = false
+
+function createNewCard(e) {
+  e.preventDefault()
+  var newTask = new Task(titleInput.title, taskInput.task, Date.now(), );
+  console.log(createNewCard);
+  main.innerHTML +=
+   `<article class="task-Card">
+  <header class="card-top">
+  <h2 class="task-title">${taskTitle.title}</h2>
+  </header>
+  <output class="card-body">
+  <ul class="task-list">
+   ${listArray()}
+  Card
+  </ul>
+  </output>
+  <footer class="card-bottom">
+  <button class="urgent-btn">
+  <img src="images/urgent.svg" alt="urgent-icon" class="urgent" id="js-urgent-svg" />
+  <p class="urgent-text">URGENT</p>
+  </button>
+  <button class="delete-btn">
+  <img src="images/delete.svg" alt="delete-icon" class="delete" id="js-delete-svg" />
+  <p class="delete-text">DELETE</p>
+  </button>
+  </footer>
+  </article>`
+};
+
+function listArray (){
+for (var i = 0; i < navTaskText.length; i++ ){
+  navTaskContainer.innerHTML += `<li class="task-checkbox">${navTaskText[i]}</li>`
+}
+};
 
 
 
@@ -61,41 +98,9 @@ function enableTaskBtn(){
 //   createNewCard(newTask);
 // };
 
-
-function createNewCard(toDoList) {
-  // var listTasks = generateToDoList(toDoList);
-  taskCard.insertAdjacentHTML('afterbegin', `<article class="task-card" data-id=${toDoList.id}>
-    <header class="card-top">
-      <h2 class="task-title">${toDoList.title}</h2>
-    </header>
-    <output class="card-body">
-          <ul class="task-list">
-          // ${[taskList]}
-          Card
-          </ul>
-    </output>
-    <footer class="card-bottom">
-      <button class="urgent-btn">
-        <img src="images/urgent.svg" alt="urgent-icon" class="urgent" id="js-urgent-svg" />
-        <p class="urgent-text">URGENT</p>
-      </button>
-      <button class="delete-btn">
-          <img src="images/delete.svg" alt="delete-icon" class="delete" id="js-delete-svg" />
-          <p class="delete-text">DELETE</p>
-      </button>
-    </footer>
-    </article>`)
-};
-
-// input text in input box and add each task, click button to make task list 
-// add an event listener for make list button
-// 
-
-
-
 // function clearAll(e){
-//   var id = parseInt(e.target.parentElement.parentElement.dataset.id);
-//   e.target.parentElement.parentElement.remove();
+  //   var id = parseInt(e.target.parentElement.parentElement.dataset.id);
+  //   e.target.parentElement.parentElement.remove();
 // 	var toDo = findTask(id);
 // 	toDo.deleteFromStorage();
 // };
@@ -147,20 +152,20 @@ function createNewCard(toDoList) {
 // };
 
 
-function clearInputs() {
-  titleInput.value = '';
-  bodyInput.value = '';
-};
+// function clearInputs() {
+//   titleInput.value = '';
+//   bodyInput.value = '';
+// };
 
-function disableAddBtn() {
-  var disabledBtn = titleInput.value === '' || taskInput.value === '';
-  addBtn.disabled = disabledBtn;
-};
+// function disableAddBtn() {
+//   var disabledBtn = titleInput.value === '' || taskInput.value === '';
+//   addBtn.disabled = disabledBtn;
+// };
 
-function disableClearBtn() {
-  var Btn = titleInput.value === '' || taskInput.value === '';
-  clearBtn.disabled = disabledBtn;
-};
+// function disableClearBtn() {
+//   var Btn = titleInput.value === '' || taskInput.value === '';
+//   clearBtn.disabled = disabledBtn;
+// };
 
 // //function editTaskCard() {
 //   var editText = document.querySelectorAll('#js-idea-text');
