@@ -7,7 +7,7 @@ class Task {
   };
 
   saveToStorage(toDoArray) {
-    localStorage.setItem("ideas", JSON.stringify(toDoArray));
+    localStorage.setItem("task", JSON.stringify(toDoArray));
   };
 
   deleteFromStorage(toDo) {
