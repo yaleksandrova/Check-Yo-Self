@@ -10,28 +10,42 @@ var urgentBtn = document.querySelector(".urgent-btn");
 var deleteBtn = document.querySelector(".delete-btn");
 var taskCard = document.querySelector(".task-card");
 var removeCard = document.querySelector(".nav");
+var navTaskContainer = document.querySelector("#input-container");
 
 //Event Listeners
 
-addTaskBtn.addEventListener('click', addNewTask);
-taskCard.addEventListener('click', removeFromTaskList);
-makeTaskBtn.addEventListener('click', addNewTask);
+addTaskBtn.addEventListener('click', makeItem);
+// taskCard.addEventListener('click', removeFromTaskList);
+// makeTaskBtn.addEventListener('click', addNewTask);
 
-clearAllBtn.addEventListener('keyup', clearAll);
+// clearAllBtn.addEventListener('keyup', clearAll);
 
-titleInput.addEventListener('keyup', disableBtns);
-itemInput.addEventListener('keyup', disableBtns);
-itemInput.addEventListener('keyup', disableBtns);
+// titleInput.addEventListener('keyup', disableBtns);
+// itemInput.addEventListener('keyup', disableBtns);
+// itemInput.addEventListener('keyup', disableBtns);
 
-function addNewTask() {
-  var ul = document.querySelector();
-  var newTask = new Task(titleInput.value, taskInput.value, Date.now(), );
-  clearInputs();
-  toDoArray.push(newTask);
-  newTask.saveToStorage(toDoArray);
-  addBtn.disabled = false;
-  createNewCard(newTask);
-};
+
+function makeItem() {
+  debugger;
+  navTaskContainer.innerHTML =
+  `<section class="taskContainer"
+    <input class="nav-task-input" id=""nav-task-input" type="image" src="images/delete.svg" alt="delete button"
+    <p class="nav-task-text" id="nav-task-text">${itemInput.value}
+    </p></input>
+    </section>
+    `+ navTaskContainer.innerHTML;
+
+
+}
+// function addNewTask() {
+//   var ul = document.querySelector();
+//   var newTask = new Task(titleInput.value, taskInput.value, Date.now(), );
+//   clearInputs();
+//   toDoArray.push(newTask);
+//   newTask.saveToStorage(toDoArray);
+//   addBtn.disabled = false;
+//   createNewCard(newTask);
+// };
 
 function createNewCard(toDoList) {
   var listTasks = generateToDoList(toDoList);
@@ -57,57 +71,58 @@ function createNewCard(toDoList) {
     </article>`)
 };
 
-function clearAll(e){
-  var id = parseInt(e.target.parentElement.parentElement.dataset.id);
-  e.target.parentElement.parentElement.remove();
-	var toDo = findTask(id);
-	toDo.deleteFromStorage();
-};
+// function clearAll(e){
+//   var id = parseInt(e.target.parentElement.parentElement.dataset.id);
+//   e.target.parentElement.parentElement.remove();
+// 	var toDo = findTask(id);
+// 	toDo.deleteFromStorage();
+// };
 
-function removeFromTaskList(e) {
-  if (e.target.className === "delete") {
-    removeCard(e);
-  } else if (e.target.className === "urgent") {
-  	urgency(e, e.target.parentNode.parentNode.dataset.id);
-  };
+// function removeFromTaskList(e) {
+//   if (e.target.className === "delete") {
+//     removeCard(e);
+//   } else if (e.target.className === "urgent") {
+//   	urgency(e, e.target.parentNode.parentNode.dataset.id);
+//   };
 
-function makeTaskList(id) {
-  return toDoArray.find(function(toDo) {	
-    return toDo.id === id
-  })
-};
+// function makeTaskList(id) {
+//   return toDoArray.find(function(toDo) {	
+//     return toDo.id === id
+//   })
+// };
 
-function saveEdit(e) {
-  var element = e.target.id === ".title-input" ? 'title' : 'urgency'
-  if (e.keyCode === 13 || e.type === 'blur') {
-    var newValue = e.target.innerText;
-    var cardId = e.path[2].attributes[1].value
-    var index = findTheIndex(cardId);
-    toDoArray[index].updateToDo(toDoArray, element, newValue);
-  }
-};
-function createCardsOnLoad() {
-  var newArray = [];
-  toDoArray.forEach(function(task){
-    var newTask = new Task (task.title, task.body, task.id, task.urgency);
-    newArray.push(newTask);
-    createNewCard(newTask);
-  })
+// function saveEdit(e) {
+//   var element = e.target.id === ".title-input" ? 'title' : 'urgency'
+//   if (e.keyCode === 13 || e.type === 'blur') {
+//     var newValue = e.target.innerText;
+//     var cardId = e.path[2].attributes[1].value
+//     var index = findTheIndex(cardId);
+//     toDoArray[index].updateToDo(toDoArray, element, newValue);
+//   }
+// };
 
-  toDoArray = newArray;
-};
 
-createCardsOnLoad();
+// function createCardsOnLoad() {
+//   var newArray = [];
+//   toDoArray.forEach(function(task){
+//     var newTask = new Task (task.title, task.body, task.id, task.urgency);
+//     newArray.push(newTask);
+//     createNewCard(newTask);
+//   })
 
-function findTheIndex(id) {
-  var findTheIndex = toDoArray.findIndex(function(card) {
-    if (card.id === parseInt(id)) {
-      return card;
-    }
-  })
+//   toDoArray = newArray;
+// };
 
-  return findTheIndex;
-};
+
+// function findTheIndex(id) {
+//   var findTheIndex = toDoArray.findIndex(function(card) {
+//     if (card.id === parseInt(id)) {
+//       return card;
+//     }
+//   })
+
+//   return findTheIndex;
+// };
 
 
 function clearInputs() {
@@ -141,4 +156,4 @@ function disableClearBtn() {
 //     taskCard.innerText = '';
 //     results.forEach(function(toDo) {
 //       createNewCard(toDo);
-    // })
+
