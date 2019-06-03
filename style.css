@@ -1,5 +1,6 @@
 * {
-	box-sizing: border-box;
+  box-sizing: border-box;
+  /* border: solid 1px red; */
 }
 
 /*---------------Body-------------*/
@@ -53,7 +54,7 @@ form {
   grid-column: 3/4;
   font-size: 2em;
   width: 89%;
-  height: 77%;
+  height: 42px;
 }
 
 .search-input {
@@ -68,24 +69,30 @@ form {
   padding: 15px 6px;
 }
 
-.search-btn {
+.img-search {
+  -webkit-font-smoothing: antialiased;
+  line-height: 1;
+  background-color: #C7D3D8;
   display: inline-block;
   height: 2.8em;
   font-size: 15px;
-  margin-left: -330px;
+  margin-left: -109%;
   padding: 5px;
   width: 10%;
   border: none;
 }
+.checkbox-img{
+  width: 5px;
+  height: 5px;
+}
+.nav-task-delete-btn {
+  width: 20px;
+  height: 20px;
+}
 
-.img-search {
-  background-color: #C7D3D8;
-  height: 2.8em;
-  padding: 8px;
-  margin: -5px 0px 0px -5px;
-  text-rendering: auto;
-    line-height: 1;
-    -webkit-font-smoothing: antialiased;
+.taskContainer {
+  display:flex;
+  align-items: center;
 }
 
 /*----------------Nav------------*/
@@ -119,12 +126,11 @@ nav {
 .item-label {
   display: flex;
   flex-direction: column;
-  display: inline-block;
   color: #F3F6F7;
   font-size: 1em;
-  margin-bottom: 25px 0px 5px 0px;
   font-weight: 400;
   width: 95%;
+  padding-top: 1.5rem;
 }
 
 .plus-btn {
@@ -173,6 +179,10 @@ nav button {
 .input-container {
   display: flex;
   flex-direction: column;
+}
+.taskContainer {
+  padding-left: 1rem;
+  margin: 5px;
 }
 
 /*--------------Main---------------*/

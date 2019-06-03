@@ -3,45 +3,75 @@ var searchInput = document.querySelector(".search-input");
 var titleInput = document.querySelector(".title-input");
 var itemInput = document.querySelector(".item-input");
 var addTaskBtn = document.querySelector(".plus-btn");
-var makeTaskBtn = document.querySelector(".make-task-btn");
+var makeTaskList = document.querySelector(".make-task-btn");
 var clearAllBtn = document.querySelector(".clear-all-btn");
 var filterBtn = document.querySelector(".filter-btn");
 var urgentBtn = document.querySelector(".urgent-btn");
-var deleteBtn = document.querySelector(".delete-btn");
+var deleteItemBtn = document.querySelector("#nav-task-input");
 var taskCard = document.querySelector(".task-card");
 var removeCard = document.querySelector(".nav");
+var navTaskContainer = document.querySelector("#input-container");
 
 //Event Listeners
+navTaskContainer.addEventListener('click', deleteTask);
+addTaskBtn.addEventListener('click', makeItem);
+// taskCard.addEventListener('click', removeFromTaskList);
+makeTaskList.addEventListener('click', createNewCard);
 
-addTaskBtn.addEventListener('click', addNewTask);
-taskCard.addEventListener('click', removeFromTaskList);
-makeTaskBtn.addEventListener('click', addNewTask);
+// clearAllBtn.addEventListener('keyup', clearAll);
 
-clearAllBtn.addEventListener('keyup', clearAll);
+// titleInput.addEventListener('keyup', disableBtns);
+itemInput.addEventListener('keyup', enableTaskBtn);
+// itemInput.addEventListener('keyup', disableBtns);
 
-titleInput.addEventListener('keyup', disableBtns);
-itemInput.addEventListener('keyup', disableBtns);
-itemInput.addEventListener('keyup', disableBtns);
 
-function addNewTask() {
-  var ul = document.querySelector();
-  var newTask = new Task(titleInput.value, taskInput.value, Date.now(), );
-  clearInputs();
-  toDoArray.push(newTask);
-  newTask.saveToStorage(toDoArray);
-  addBtn.disabled = false;
-  createNewCard(newTask);
+function makeItem() {
+  navTaskContainer.innerHTML =
+  `<section class="taskContainer">
+    <input class="nav-task-delete-btn" id="nav-task-input" type="image" src="images/delete.svg" alt="delete button">
+    <p class="nav-task-text" id="nav-task-text">${itemInput.value}
+    </p></input>
+    </section>
+    `+ navTaskContainer.innerHTML;
 };
 
+function deleteTask(e) {
+  e.preventDefault()
+  if( e.target.closest("#nav-task-input")) {
+    e.target.closest("section").remove();
+  }
+};
+
+function enableTaskBtn(){
+  if (itemInput.value == true) {
+    addTaskBtn.disabled = !addTaskBtn.disabled; 
+  }
+}
+// make it = false
+
+
+
+// function addNewTask() {
+//   var ul = document.querySelector();
+//   var newTask = new Task(titleInput.value, taskInput.value, Date.now(), );
+//   clearInputs();
+//   toDoArray.push(newTask);
+//   newTask.saveToStorage(toDoArray);
+//   addBtn.disabled = false;
+//   createNewCard(newTask);
+// };
+
+
 function createNewCard(toDoList) {
-  var listTasks = generateToDoList(toDoList);
+  // var listTasks = generateToDoList(toDoList);
   taskCard.insertAdjacentHTML('afterbegin', `<article class="task-card" data-id=${toDoList.id}>
     <header class="card-top">
       <h2 class="task-title">${toDoList.title}</h2>
     </header>
     <output class="card-body">
           <ul class="task-list">
-          ${listTasks}
+          // ${[taskList]}
+          Card
           </ul>
     </output>
     <footer class="card-bottom">
@@ -57,57 +87,64 @@ function createNewCard(toDoList) {
     </article>`)
 };
 
-function clearAll(e){
-  var id = parseInt(e.target.parentElement.parentElement.dataset.id);
-  e.target.parentElement.parentElement.remove();
-	var toDo = findTask(id);
-	toDo.deleteFromStorage();
-};
+// input text in input box and add each task, click button to make task list 
+// add an event listener for make list button
+// 
 
-function removeFromTaskList(e) {
-  if (e.target.className === "delete") {
-    removeCard(e);
-  } else if (e.target.className === "urgent") {
-  	urgency(e, e.target.parentNode.parentNode.dataset.id);
-  };
 
-function makeTaskList(id) {
-  return toDoArray.find(function(toDo) {	
-    return toDo.id === id
-  })
-};
 
-function saveEdit(e) {
-  var element = e.target.id === ".title-input" ? 'title' : 'urgency'
-  if (e.keyCode === 13 || e.type === 'blur') {
-    var newValue = e.target.innerText;
-    var cardId = e.path[2].attributes[1].value
-    var index = findTheIndex(cardId);
-    toDoArray[index].updateToDo(toDoArray, element, newValue);
-  }
-};
-function createCardsOnLoad() {
-  var newArray = [];
-  toDoArray.forEach(function(task){
-    var newTask = new Task (task.title, task.body, task.id, task.urgency);
-    newArray.push(newTask);
-    createNewCard(newTask);
-  })
+// function clearAll(e){
+//   var id = parseInt(e.target.parentElement.parentElement.dataset.id);
+//   e.target.parentElement.parentElement.remove();
+// 	var toDo = findTask(id);
+// 	toDo.deleteFromStorage();
+// };
 
-  toDoArray = newArray;
-};
+// function removeFromTaskList(e) {
+//   if (e.target.className === "delete") {
+//     removeCard(e);
+//   } else if (e.target.className === "urgent") {
+//   	urgency(e, e.target.parentNode.parentNode.dataset.id);
+//   };
 
-createCardsOnLoad();
+// function makeTaskList(id) {
+//   return toDoArray.find(function(toDo) {	
+//     return toDo.id === id
+//   })
+// };
 
-function findTheIndex(id) {
-  var findTheIndex = toDoArray.findIndex(function(card) {
-    if (card.id === parseInt(id)) {
-      return card;
-    }
-  })
+// function saveEdit(e) {
+//   var element = e.target.id === ".title-input" ? 'title' : 'urgency'
+//   if (e.keyCode === 13 || e.type === 'blur') {
+//     var newValue = e.target.innerText;
+//     var cardId = e.path[2].attributes[1].value
+//     var index = findTheIndex(cardId);
+//     toDoArray[index].updateToDo(toDoArray, element, newValue);
+//   }
+// };
 
-  return findTheIndex;
-};
+
+// function createCardsOnLoad() {
+//   var newArray = [];
+//   toDoArray.forEach(function(task){
+//     var newTask = new Task (task.title, task.body, task.id, task.urgency);
+//     newArray.push(newTask);
+//     createNewCard(newTask);
+//   })
+
+//   toDoArray = newArray;
+// };
+
+
+// function findTheIndex(id) {
+//   var findTheIndex = toDoArray.findIndex(function(card) {
+//     if (card.id === parseInt(id)) {
+//       return card;
+//     }
+//   })
+
+//   return findTheIndex;
+// };
 
 
 function clearInputs() {
@@ -141,4 +178,4 @@ function disableClearBtn() {
 //     taskCard.innerText = '';
 //     results.forEach(function(toDo) {
 //       createNewCard(toDo);
-    // })
+
