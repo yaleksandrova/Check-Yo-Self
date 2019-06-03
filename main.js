@@ -3,40 +3,54 @@ var searchInput = document.querySelector(".search-input");
 var titleInput = document.querySelector(".title-input");
 var itemInput = document.querySelector(".item-input");
 var addTaskBtn = document.querySelector(".plus-btn");
-var makeTaskBtn = document.querySelector(".make-task-btn");
+var makeTaskList = document.querySelector(".make-task-btn");
 var clearAllBtn = document.querySelector(".clear-all-btn");
 var filterBtn = document.querySelector(".filter-btn");
 var urgentBtn = document.querySelector(".urgent-btn");
-var deleteBtn = document.querySelector(".delete-btn");
+var deleteItemBtn = document.querySelector("#nav-task-input");
 var taskCard = document.querySelector(".task-card");
 var removeCard = document.querySelector(".nav");
 var navTaskContainer = document.querySelector("#input-container");
 
 //Event Listeners
-
+navTaskContainer.addEventListener('click', deleteTask);
 addTaskBtn.addEventListener('click', makeItem);
 // taskCard.addEventListener('click', removeFromTaskList);
-// makeTaskBtn.addEventListener('click', addNewTask);
+makeTaskList.addEventListener('click', createNewCard);
 
 // clearAllBtn.addEventListener('keyup', clearAll);
 
 // titleInput.addEventListener('keyup', disableBtns);
-// itemInput.addEventListener('keyup', disableBtns);
+itemInput.addEventListener('keyup', enableTaskBtn);
 // itemInput.addEventListener('keyup', disableBtns);
 
 
 function makeItem() {
-  debugger;
   navTaskContainer.innerHTML =
-  `<section class="taskContainer"
-    <input class="nav-task-input" id=""nav-task-input" type="image" src="images/delete.svg" alt="delete button"
+  `<section class="taskContainer">
+    <input class="nav-task-delete-btn" id="nav-task-input" type="image" src="images/delete.svg" alt="delete button">
     <p class="nav-task-text" id="nav-task-text">${itemInput.value}
     </p></input>
     </section>
     `+ navTaskContainer.innerHTML;
+};
 
+function deleteTask(e) {
+  e.preventDefault()
+  if( e.target.closest("#nav-task-input")) {
+    e.target.closest("section").remove();
+  }
+};
 
+function enableTaskBtn(){
+  if (itemInput.value == true) {
+    addTaskBtn.disabled = !addTaskBtn.disabled; 
+  }
 }
+// make it = false
+
+
+
 // function addNewTask() {
 //   var ul = document.querySelector();
 //   var newTask = new Task(titleInput.value, taskInput.value, Date.now(), );
@@ -47,15 +61,17 @@ function makeItem() {
 //   createNewCard(newTask);
 // };
 
+
 function createNewCard(toDoList) {
-  var listTasks = generateToDoList(toDoList);
+  // var listTasks = generateToDoList(toDoList);
   taskCard.insertAdjacentHTML('afterbegin', `<article class="task-card" data-id=${toDoList.id}>
     <header class="card-top">
       <h2 class="task-title">${toDoList.title}</h2>
     </header>
     <output class="card-body">
           <ul class="task-list">
-          ${listTasks}
+          // ${[taskList]}
+          Card
           </ul>
     </output>
     <footer class="card-bottom">
@@ -70,6 +86,12 @@ function createNewCard(toDoList) {
     </footer>
     </article>`)
 };
+
+// input text in input box and add each task, click button to make task list 
+// add an event listener for make list button
+// 
+
+
 
 // function clearAll(e){
 //   var id = parseInt(e.target.parentElement.parentElement.dataset.id);

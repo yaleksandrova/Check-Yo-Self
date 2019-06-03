@@ -1,5 +1,6 @@
 * {
-	box-sizing: border-box;
+  box-sizing: border-box;
+  /* border: solid 1px red; */
 }
 
 /*---------------Body-------------*/
@@ -80,6 +81,19 @@ form {
   width: 10%;
   border: none;
 }
+.checkbox-img{
+  width: 5px;
+  height: 5px;
+}
+.nav-task-delete-btn {
+  width: 20px;
+  height: 20px;
+}
+
+.taskContainer {
+  display:flex;
+  align-items: center;
+}
 
 /*----------------Nav------------*/
 
@@ -116,6 +130,7 @@ nav {
   font-size: 1em;
   font-weight: 400;
   width: 95%;
+  padding-top: 1.5rem;
 }
 
 .plus-btn {
@@ -164,6 +179,10 @@ nav button {
 .input-container {
   display: flex;
   flex-direction: column;
+}
+.taskContainer {
+  padding-left: 1rem;
+  margin: 5px;
 }
 
 /*--------------Main---------------*/
@@ -254,52 +273,3 @@ article {
   margin: 0px;
 }
 
-@media screen and (max-width: 575px) {
-  
-  header {
-    display: flex;
-    flex-direction: column;
-    height: 120px;
-    justify-content: center;
-    width: 100%;
-  }
-
-  .header__title {
-    margin: 10px 7px 10px 0;
-  }
-
-  main {
-    grid-template-columns: auto;
-    height: 94vh;;
-  }
-
-  .nav {
-    height: 550px;
-  }
-
-  .nav-form {
-    margin-top: 70px;
-  }
-  
-  .sidebar__form__todo--item--container {
-    display: flex;
-    flex-direction: row-reverse;
-  }
-
-  .sidebar__form__todo--item--input {
-    width: 100%;
-  }
-
-  .card-zone {
-    align-items: center;
-    display: grid;
-    width: 92%;
-  }
-}
-
-@media screen and (max-width: 320px) {
-  
-  body {
-    width: 320px;
-  }
-}
