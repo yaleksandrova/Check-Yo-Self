@@ -51,20 +51,22 @@ function enableTaskBtn(){
     addTaskBtn.disabled = !addTaskBtn.disabled; 
   }
 }
+// var newTask = new Task(titleInput.title, taskInput.task, Date.now(), );
 
 function createNewCard(e) {
   e.preventDefault()
-  var newTask = new Task(titleInput.title, taskInput.task, Date.now(), );
-  console.log(createNewCard);
   main.innerHTML +=
    `<article class="task-Card">
   <header class="card-top">
-  <h2 class="task-title">${taskTitle.title}</h2>
+  <h2 class="task-title">
+  "title"
+  
+  </h2>
   </header>
   <output class="card-body">
   <ul class="task-list">
-   ${listArray()}
-  Card
+ 
+  "Card"
   </ul>
   </output>
   <footer class="card-bottom">
@@ -80,11 +82,11 @@ function createNewCard(e) {
   </article>`
 };
 
-function listArray (){
-for (var i = 0; i < navTaskText.length; i++ ){
-  navTaskContainer.innerHTML += `<li class="task-checkbox">${navTaskText[i]}</li>`
-}
-};
+// function listArray (){
+// for (var i = 0; i < navTaskText.length; i++ ){
+//   navTaskContainer.innerHTML += `<li class="task-checkbox">${navTaskText[i]}</li>`
+// }
+// };
 
 
 
