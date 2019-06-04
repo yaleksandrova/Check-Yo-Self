@@ -70,7 +70,6 @@ form {
 }
 
 .img-search {
-  -webkit-font-smoothing: antialiased;
   line-height: 1;
   background-color: #C7D3D8;
   display: inline-block;
@@ -110,16 +109,18 @@ nav {
 
 .title-input,
 .item-input {
-  border-right: 0px;
-  border-radius: 2.5px 0px 0px 2.5px;
   align-items: center;
   flex-direction: column;
   font-size: 1em;
   height: 2.5em;
   width: 95%;
   border: 1px solid #1F1F3D;
-  margin: 10px 10px 15px 10px;
-	padding: 5px;
+  padding: 5px;
+  justify-content: center;
+}
+
+.title-input {
+  margin: 15px 3px 3px -3px;
 }
 
 .title-label, 
@@ -131,6 +132,18 @@ nav {
   font-weight: 400;
   width: 95%;
   padding-top: 1.5rem;
+  justify-content: center;
+  margin: 10px 15px;
+
+}
+.item-container {
+  display: flex;
+  font-size: 1em;
+  font-size: 1em;
+  height: 2.5em;
+  width: 95%;
+  border: 1px solid #1F1F3D;
+  margin: 15px 3px 3px -3px;
 }
 
 .plus-btn {
@@ -236,7 +249,7 @@ article {
   margin-right: 5px;
   margin-left: 13px;
   background-image: url(images/checkbox.svg);
-  
+
 }
 
 .checkbox-img {
