@@ -60,8 +60,8 @@ function createNewCard(e) {
    `<article class="task-Card">
   <header class="card-top">
   <h2 class="task-title">
-  "title"
-  
+  Task Title
+
   </h2>
   </header>
   <output class="card-body">
