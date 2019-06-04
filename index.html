@@ -24,8 +24,10 @@
         </section>
         <section class="input-container">
           <label class="item-label">Task Item
+          <div class="item-container">
           <input type="text" class="item-input">
           <button class="plus-btn" id="plus-btn">+</button>
+          </div>
           </label>
           <button class="make-task-btn" >Make Task List</button>
           <button class="clear-all-btn" disabled="true">Clear All</button>
@@ -35,29 +37,6 @@
         </section> 
       </nav>
       <main>
-        <article class="task-card" data-id="">
-          <header class="card-top">
-            <h2 class="task-title">Task Title</h2>
-          </header>
-          <output class="card-body">
-            <ul class="task-list">
-              <li class="task-checkbox">Don't ever play yourself.</li>
-              <li class="task-checkbox">Every chance I get, I water the plants.</li>
-              <li class="task-checkbox">Lion! Cloth talk.</li>
-              <img src="images/checkbox.svg" alt="checkbox" class="checkbox-img" id="js-checkbox-svg" />
-            </ul>
-          </output>
-          <footer class="card-bottom">
-            <button class="urgent-btn">
-              <img src="images/urgent.svg" alt="urgent-icon" class="urgent" id="js-urgent-svg" />
-              <p class="urgent-text">URGENT</p>
-            </button>
-            <button class="delete-btn">
-              <img src="images/delete.svg" alt="delete-icon" class="delete" id="card-delete-svg" />
-              <p class="delete-text">DELETE</p>
-            </button>
-            </footer>
-          </article>
         <section class="card-section masonry">
         </section>
       </main>

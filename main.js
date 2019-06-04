@@ -51,7 +51,8 @@ function enableTaskBtn(){
     addTaskBtn.disabled = !addTaskBtn.disabled; 
   }
 }
-// var newTask = new Task(titleInput.title, taskInput.task, Date.now(), );
+var newTask = new Task(titleInput.title, taskInput.task, Date.now(), );
+
 
 function createNewCard(e) {
   e.preventDefault()
