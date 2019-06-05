@@ -64,7 +64,7 @@ function toggleButtons() {
 function addItemsToList(newItem) {
   var listHTML = `
     <li class="add-item" data-id="${newItem.id}" id="">
-   <img class="delete-item" src="images/delete.svg" />
+    <img class="delete-item" src="images/delete.svg" />
     <p class="add-item-text" id="content">${newItem.content}</p> </li>`
     tempArea.insertAdjacentHTML('beforeend', listHTML);
     taskItemInput.value = "";
@@ -256,7 +256,7 @@ function taskButtons(element) {
     var currentTaskIndex = todo.taskList.findIndex(function(item) {
     return item.id == taskId;
   });
-  
+
     todo.updateTask(currentTaskIndex);
     todo.saveToStorage();
     mainCardSection.innerHTML = '';
