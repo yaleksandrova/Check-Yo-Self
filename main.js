@@ -202,7 +202,7 @@ function activateDeleteBtn(index) {
   
   if (newArray.length === deleteObj.length) {
     deleteTaskData(index);
-  } 
+  }
 }
 
 function deleteTaskData(index) {
