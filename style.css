@@ -327,9 +327,14 @@ main {
 
 @media screen and (max-width: 590px) {  
 
-header {
+.header-form {
   height: 120px;
   justify-content: center; 
+  flex-direction: column;
+}
+
+.main {
+  columns: auto;
 }
   
 h1 {
@@ -346,7 +351,7 @@ h1 {
 @media screen and (max-width: 450px) {
 
 body {
-  display: flex;
+  display: inherit;
   flex-direction: column;
 }
 
