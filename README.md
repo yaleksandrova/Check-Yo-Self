@@ -14,7 +14,11 @@ The project's goal is to create the HTML, CSS and two JavaScript files necessary
 
 Results
 
-Desktop with user prompt:
+Desktop with user layout:
 
 <img width="1429" alt="Screenshot 2019-06-05 at 12 47 41 AM" src="https://user-images.githubusercontent.com/48306813/58937511-d8155480-872f-11e9-9959-9afb952b791c.png">
 <img width="1433" alt="Screenshot 2019-06-05 at 12 44 14 AM" src="https://user-images.githubusercontent.com/48306813/58937513-d9468180-872f-11e9-9fc8-2148387b63c4.png">
+
+Modile layout:
+
+<img width="388" alt="Screenshot 2019-06-05 at 7 49 39 AM" src="https://user-images.githubusercontent.com/48306813/58962305-25adb380-8768-11e9-91dd-341fec5864c4.png">
