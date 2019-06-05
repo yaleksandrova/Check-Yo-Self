@@ -26,4 +26,11 @@ class Task {
   }
 }
 
-
+class Items {
+  constructor(content) {
+    this.content = content;
+    this.done = false;
+    this.id = Date.now();
+    this.doneImg;
+  }
+}
