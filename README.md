@@ -15,4 +15,3 @@ The project's goal is to create the HTML, CSS and two JavaScript files necessary
 Results
 
 Desktop with user prompt:
-
