@@ -325,45 +325,44 @@ main {
 
 /*-----------Media Query----------*/
 
-@media screen and (max-width: 590px) {  
-
-.header-form {
-  height: 120px;
-  justify-content: center; 
-  flex-direction: column;
-}
-
-.main {
-  columns: auto;
-}
+@media screen and (max-width: 480px) {
   
-h1 {
-  font-size: 32px;
-  margin-top: 10px;
-  position: absolute;
-}
+  header {
+    display: flex;
+    flex-direction: column;
+    height: 140px;
+    justify-content: center;
+    width: 100%;
+    position: static; 
+  }
+  
+  .header-title {
+    margin: 10px 10px;
+  }
 
-.search-input {
-  margin-bottom: 13px;
-  margin-top: 45px;
-}
+  main {
+    grid-template-columns: auto;
+    height: 95vh;
+    margin-top: 0px;
+    align-items: center;
+  }
 
-@media screen and (max-width: 450px) {
+  .add-todo-form {
+    margin-top: 10px;
+  }
+  
+  .add-task-item-container {
+    display: flex;
+    flex-direction: row-reverse;
+  }
 
-body {
-  display: inherit;
-  flex-direction: column;
-}
+  .add-task-item-input {
+    width: 100%;
+  }
 
-.title-input, .item-input {
-  width: 90%;
-}
-
-.task-Card {
-  display: flex;
-  flex-direction: column;
-  height: fit-content;
-  padding: 20px 18px 20px 13px;
-}
-
+  .card-list-area {
+    display: grid;
+    align-items: center;
+    width: 92%;
+  }
 }
