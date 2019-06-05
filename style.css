@@ -324,3 +324,39 @@ main {
   font-size: 24px;
   margin-left: 10px;
 }
+@media screen and (max-width: 480px) {
+  
+  header {
+    display: flex;
+    flex-direction: column;
+    height: 140px;
+    justify-content: center;
+    width: 100%;
+    position: static; 
+  }
+  .header-title {
+    margin: 10px 10px;
+  }
+  main {
+    grid-template-columns: auto;
+    height: 95vh;
+    margin-top: 0px;
+    align-items: center;
+  }
+  .add-todo-form {
+    margin-top: 10px;
+  }
+  
+  .add-task-item-container {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+  .add-task-item-input {
+    width: 100%;
+  }
+  .card-list-area {
+    display: grid;
+    align-items: center;
+    width: 92%;
+  }
+}
