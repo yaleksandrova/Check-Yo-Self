@@ -1,189 +1,254 @@
-var toDoArray =  JSON.parse(localStorage.getItem("toDo")) || [];
-var searchInput = document.querySelector(".search-input");
-var titleInput = document.querySelector(".title-input");
-var itemInput = document.querySelector(".item-input");
-var addTaskBtn = document.querySelector(".plus-btn");
-var makeTaskList = document.querySelector(".make-task-btn");
-var clearAllBtn = document.querySelector(".clear-all-btn");
-var filterBtn = document.querySelector(".filter-btn");
-var urgentBtn = document.querySelector(".urgent-btn");
-var deleteItemBtn = document.querySelector("#nav-task-input");
-var taskCard = document.querySelector(".task-card");
-var removeCard = document.querySelector(".nav");
-var navTaskContainer = document.querySelector("#input-container");
-// var navTaskText = document.querySelectorAll(".nav-task-text");
-var main = document.querySelector("main")
+var addTaskItemButton = document.querySelector('.add-task-item-button');
+var cardArea = document.querySelector('.card-list-area');
+var cardTitle = document.getElementsByClassName('card-list-area__task-card-title');
+var clearAll = document.querySelector('.clear-all-btn');
+var deleteListItemFromSidebar = document.querySelector('.sidebar__insert-list--delete-button');
+var listArea = document.querySelector('.item-list-temp-area');
+var makeTaskListButton = document.querySelector('.make-task-btn');
+var message = document.querySelector('.card-list-area-notif');
+var taskItemInput = document.querySelector('.add-task-item-input');
+var taskTitleInput = document.querySelector('.add-todo-form-input');
+var taskItems = [];
+var todoTasks = JSON.parse(localStorage.getItem("todos")) || [];
 
-//Event Listeners
-navTaskContainer.addEventListener('click', deleteTask);
-addTaskBtn.addEventListener('click', makeItem);
-makeTaskList.addEventListener('click', createNewCard);
-itemInput.addEventListener('keyup', enableTaskBtn);
-
+addTaskItemButton.addEventListener('click', saveAllInputItems);
+cardArea.addEventListener('click', targetTaskButtons);
+clearAll.addEventListener('click', clearEverything);
+listArea.addEventListener('click', deleteTask);
+makeTaskListButton.addEventListener('click', saveTask);
+taskItemInput.addEventListener('input', enableDisableButtons);
+taskTitleInput.addEventListener('input', enableDisableButtons);
 
 
-// taskCard.addEventListener('click', removeFromTaskList);
-// clearAllBtn.addEventListener('keyup', clearAll);
-// titleInput.addEventListener('keyup', disableBtns);
-// itemInput.addEventListener('keyup', disableBtns);
-
-
-function makeItem() {
-  enableTaskBtn();
-  navTaskContainer.innerHTML =
-  `<section class="taskContainer">
-    <input class="nav-task-delete-btn" id="nav-task-input" type="image" src="images/delete.svg" alt="delete button">
-    <p class="nav-task-text">${itemInput.value}
-    </p></input>
-    </section>
-    `+ navTaskContainer.innerHTML;
+window.onload = function(){
+  repopulateDataAfterReload();
+  messageToggle();
+  enableDisableButtons();
 };
 
-function deleteTask(e) {
-  e.preventDefault()
-  if( e.target.closest("#nav-task-input")) {
-    e.target.closest("section").remove();
+function messageToggle() {
+  if (todoTasks.length == 0) {
+    message.classList.remove("hidden") 
   }
-};
-
-function enableTaskBtn(){
-  if (itemInput.value === "") {
-    addTaskBtn.disabled = !addTaskBtn.disabled; 
+  else {
+    message.classList.add("hidden");
   }
 }
-var newTask = new Task(titleInput.title, taskInput.task, Date.now(), );
 
+// Sidebar functions
 
-function createNewCard(e) {
-  e.preventDefault()
-  main.innerHTML +=
-   `<article class="task-Card">
-  <header class="card-top">
-  <h2 class="task-title">
-  "title"
+function enableDisableButtons() {
   
-  </h2>
-  </header>
-  <output class="card-body">
-  <ul class="task-list">
- 
-  "Card"
-  </ul>
-  </output>
-  <footer class="card-bottom">
-  <button class="urgent-btn">
-  <img src="images/urgent.svg" alt="urgent-icon" class="urgent" id="js-urgent-svg" />
-  <p class="urgent-text">URGENT</p>
-  </button>
-  <button class="delete-btn">
-  <img src="images/delete.svg" alt="delete-icon" class="delete" id="js-delete-svg" />
-  <p class="delete-text">DELETE</p>
-  </button>
-  </footer>
-  </article>`
-};
+  //ternary operator
+  taskItemInput.value == '' ?  addTaskItemButton.disabled = true : addTaskItemButton.disabled = false;
 
-// function listArray (){
-// for (var i = 0; i < navTaskText.length; i++ ){
-//   navTaskContainer.innerHTML += `<li class="task-checkbox">${navTaskText[i]}</li>`
-// }
-// };
+  taskTitleInput.value == '' || listArea.innerHTML == '' ? 
+    makeTaskListButton.disabled = true : 
+    makeTaskListButton.disabled = false;
+  
+  taskItemInput.value == '' && taskTitleInput.value == '' && listArea.innerText == '' ? 
+    clearAll.disabled = true : 
+    clearAll.disabled = false;
+}
 
+function addItemsToList(newItem) {
+  var listHTML = `
+    <li class="sidebar__insert-list item" data-id="${newItem.id}" id="">
+      <img class="sidebar__insert-list--delete-button item" src="images/delete.svg" alt="Delete task from sidebar list"/>
+      <p class="sidebar__insert-list--text item">${newItem.content}</p>
+    <!-- //newItem.content displays the input text -->
+    </li>`
+    listArea.insertAdjacentHTML('beforeend', listHTML);
+  taskItemInput.value = "";
+}
 
+function deleteTask(e) {
+  e.preventDefault();
+  e.target.closest('li').remove();
+}
 
-// function addNewTask() {
-//   var ul = document.querySelector();
-//   var newTask = new Task(titleInput.value, taskInput.value, Date.now(), );
-//   clearInputs();
-//   toDoArray.push(newTask);
-//   newTask.saveToStorage(toDoArray);
-//   addBtn.disabled = false;
-//   createNewCard(newTask);
-// };
+function deleteAllSidebarListItems() {
+  var removeLiNodes = document.getElementById('list-items');
+  while (removeLiNodes.firstChild) {
+    removeLiNodes.removeChild(removeLiNodes.firstChild);
+  }
+}
 
-// function clearAll(e){
-  //   var id = parseInt(e.target.parentElement.parentElement.dataset.id);
-  //   e.target.parentElement.parentElement.remove();
-// 	var toDo = findTask(id);
-// 	toDo.deleteFromStorage();
-// };
+function saveAllInputItems() {
+  var newItem = new Items(taskItemInput.value);
+  taskItems.push(newItem);
+  addItemsToList(newItem);
+  enableDisableButtons();
+}
 
-// function removeFromTaskList(e) {
-//   if (e.target.className === "delete") {
-//     removeCard(e);
-//   } else if (e.target.className === "urgent") {
-//   	urgency(e, e.target.parentNode.parentNode.dataset.id);
-//   };
+// On sidebar button click population functions 
 
-// function makeTaskList(id) {
-//   return toDoArray.find(function(toDo) {	
-//     return toDo.id === id
-//   })
-// };
+function saveTask() {
+  createTodoTask();
+  messageToggle();
+  enableDisableButtons();
+}
 
-// function saveEdit(e) {
-//   var element = e.target.id === ".title-input" ? 'title' : 'urgency'
-//   if (e.keyCode === 13 || e.type === 'blur') {
-//     var newValue = e.target.innerText;
-//     var cardId = e.path[2].attributes[1].value
-//     var index = findTheIndex(cardId);
-//     toDoArray[index].updateToDo(toDoArray, element, newValue);
-//   }
-// };
+function createTodoTask() {
+  var newTodoTask = new Task(taskTitleInput.value, taskItems);
+  todoTasks.push(newTodoTask);
+  newTodoTask.saveToStorage();
+  appendTaskToDOM(newTodoTask);
+  deleteAllSidebarListItems();
+  clearInputFields();
+}
 
+function appendTaskToDOM(newTodoTask) {
+  var card = `
+  <div class="card-list-area__task-card ${newTodoTask.urgency}" id="task-card" data-id="${newTodoTask.id}">
+    <h3 class="card-list-area__task-card-title ${newTodoTask.urgency}">${newTodoTask.title}</h3>
+    <div class="card-list-area__task-card__items ${newTodoTask.urgency}">
+      <ul class="card-list-area__populate">
+      ${appendTaskToTask(newTodoTask)}
+      </ul>
+    </div>
+    <div class="card-list-area__task-card__footer">
+      <div class="card-list-area__task-card__footer--left">
+        <img class="card-list-area__task-card__footer--urgency-button" id="urgent-img-${newTodoTask.urgency}" src="${newTodoTask.urgency ? 'images/urgent-active.svg' : 'images/urgent.svg'}">
+        <p id="urgent-text-${newTodoTask.urgency}">URGENT</p>
+      </div>
+      <div class="card-list-area__task-card__footer--right">
+        <img class="card-list-area__task-card__footer--delete-button" src="images/delete.svg">
+        <p>DELETE</p>
+      </div>
+    </div>
+  </div>
+  `;
+  
+  cardArea.insertAdjacentHTML('afterbegin', card)
+  taskItems = [];
+}
 
-// function createCardsOnLoad() {
-//   var newArray = [];
-//   toDoArray.forEach(function(task){
-//     var newTask = new Task (task.title, task.body, task.id, task.urgency);
-//     newArray.push(newTask);
-//     createNewCard(newTask);
-//   })
+function appendTaskToTask(newTodoTask) {
+  var taskListIteration = '';
+  
+  for (var i = 0; i < newTodoTask.taskList.length; i++){
+    taskListIteration += `
+      <li class="card-list-area__populate--li">
 
-//   toDoArray = newArray;
-// };
+<!-- //change the done method --> 
+        <img class="card__task-delete" src=${newTodoTask.taskList[i].done ? 'images/checkbox-active.svg' : 'images/checkbox.svg'} alt="Delete task from card" data-id=${newTodoTask.taskList[i].id} id="index ${i}"/>
+        <p id="check-off-${newTodoTask.taskList[i].done}">${newTodoTask.taskList[i].content}</p>
+      </li>
+      `
+  } 
+  
+  return taskListIteration;
+}
 
+function repopulateDataAfterReload() {
+  var oldTodoTasks = todoTasks;
+  var newInstances = oldTodoTasks.map(function(datum) {
+    datum = new Task(datum.title, datum.taskList, datum.urgency, datum.id);
+    return datum;
+  });
+  
+  todoTasks = newInstances;
+  restoreTasks(todoTasks);
+}
 
-// function findTheIndex(id) {
-//   var findTheIndex = toDoArray.findIndex(function(card) {
-//     if (card.id === parseInt(id)) {
-//       return card;
-//     }
-//   })
+function restoreTasks(todoTasks) {
+  todoTasks.forEach(function(datum) {
+    appendTaskToDOM(datum);
+  });
+}
 
-//   return findTheIndex;
-// };
+// Target card buttons functions 
 
+function targetTaskButtons(e) {
+  if (e.target.className === 'card-list-area__task-card__footer--urgency-button') {
+    targetTaskUrgent(e);
+  }
+  if (e.target.className === 'card-list-area__task-card__footer--delete-button') {
+    targetTaskForDeletion(e);
+  }
+  if (e.target.className === 'card__task-delete') {
+    targetListItem(e);
+  }
+  messageToggle();
+}
 
-// function clearInputs() {
-//   titleInput.value = '';
-//   bodyInput.value = '';
-// };
+function targetTaskUrgent(e) {
+  var card = e.target.closest('.card-list-area__task-card');
+  var index = findTaskIndex(card);
+  makeTaskDataUrgent(index);
+}
 
-// function disableAddBtn() {
-//   var disabledBtn = titleInput.value === '' || taskInput.value === '';
-//   addBtn.disabled = disabledBtn;
-// };
+function makeTaskDataUrgent(index) {
+  var cardToMakeUrgent = todoTasks[index];
+  cardToMakeUrgent.updateToDo();
+  cardArea.innerHTML = '';
+  repopulateDataAfterReload();
+}
 
-// function disableClearBtn() {
-//   var Btn = titleInput.value === '' || taskInput.value === '';
-//   clearBtn.disabled = disabledBtn;
-// };
+function targetTaskForDeletion(e) {
+  var card = e.target.closest('.card-list-area__task-card');
+  var index = findTaskIndex(card);
+  activateDeleteBtn(index);
+}
 
-// //function editTaskCard() {
-//   var editText = document.querySelectorAll('#js-idea-text');
-//   for (var i = 0; i < editText.length; i++) {
-//     editText.createElement('textarea');
-//   }
-// };//
+// Delete buttons 
 
+function activateDeleteBtn(index) {
+  var deleteObj = todoTasks[index].taskList;
+  var newArray = deleteObj.filter(function(element) {
+    return element.done === true;
+  });
+  
+  if (newArray.length === deleteObj.length) {
+    deleteTaskData(index);
+  } 
+}
 
-// function filterTask(e) {
-//   var searchTextField = e.target.value.toLowerCase();
-//   var results = toDoArray.filter(function(toDo) {
-//       return toDo.title.toLowerCase().includes(searchTextField) || toDo.body.toLowerCase().includes(searchTextField);
-//     })
-//     taskCard.innerText = '';
-//     results.forEach(function(toDo) {
-//       createNewCard(toDo);
+function deleteTaskData(index) {
+  todoTasks[index].deleteFromStorage(index);
+  cardArea.innerHTML = '';
+  repopulateDataAfterReload();
+}
 
+function findTaskIndex(card) {
+  var cardId = card.dataset.id;
+   
+  //return refactor 
+  return todoTasks.findIndex(function(item) {
+    return item.id == cardId;
+  });
+}
+
+function findItemIndex(todoObject, taskId) {
+  return todoObject.taskList.findIndex(function(item) {
+    return item.id == taskId;
+  });
+}
+
+function targetListItem(e) {
+  var taskId = e.target.dataset.id;
+  var card = e.target.closest('.card-list-area__task-card');
+  
+  var index = findTaskIndex(card);
+  var todoObject = todoTasks[index];
+  var specificTaskIndex = findItemIndex(todoObject, taskId);
+  todoObject.updateTask(specificTaskIndex);
+  todoObject.saveToStorage();
+  cardArea.innerHTML = '';
+  repopulateDataAfterReload();
+}
+
+// Global clearing functions 
+
+function clearEverything(e) {
+  deleteAllSidebarListItems();
+  clearInputFields();
+  taskItems = [];
+  enableDisableButtons();
+}
+
+function clearInputFields() {
+  taskItemInput.value = '';
+  taskTitleInput.value = '';
+}

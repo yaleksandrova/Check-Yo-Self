@@ -1,46 +1,45 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Check Yo'Self</title>
-      <link rel="stylesheet" type= "text/css" href= "reset.css">
-      <link rel="stylesheet" type= "text/css" href= "style.css">
-      <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&display=swap" 
-      rel="stylesheet">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>CHECK YO' SELF!</title>
+    <meta name="description" content="Check Yo' Self"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css"/>
+    <link rel="stylesheet" href="style.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
   </head>
     <body>
       <header>
-        <h1>CHECK <span>YO'</span> SELF</h1>
-        <form class="search-form">
-          <input type="text" class="search-input" placeholder="Search"/>
-          <img src="images/search.svg" alt="search-icon" class="img-search" /></button>
+        <h1 class="header-title">CHECK <span class="header-title-yo">YO'</span> SELF</h1>
+        <form class="header-form">
+        <img class="search-img" src="images/search.svg">
+          <input type="text" placeholder="Search" class="search-input "> 
         </form>
       </header>
-
-      <nav class="nav">
-          <label class="title-label">Task Title
-          <input type="text" class="title-input">
-          </label>
-        <section class="input-container" id="input-container">
-        </section>
-        <section class="input-container">
-          <label class="item-label">Task Item
-          <div class="item-container">
-          <input type="text" class="item-input">
-          <button class="plus-btn" id="plus-btn">+</button>
-          </div>
-          </label>
-          <button class="make-task-btn" >Make Task List</button>
-          <button class="clear-all-btn" disabled="true">Clear All</button>
-        </section>
-        <section class="filter-section">
-          <button class="filter-btn">Filter By Urgency</button>
-        </section> 
-      </nav>
       <main>
-        <section class="card-section masonry">
-        </section>
+        <aside class="sidebar">
+          <form class="add-todo-form">
+            <label for="title-input" class="add-todo-form-title">Task Title</label>
+            <input id="title-input" name="title-input" type="text" class="add-todo-form-input " />
+            <ul class="item-list-temp-area" id="list-items">     
+            </ul>
+            <label for="task-input" class="add-task-item-lbl">Task Item</label>
+            <div class="add-task-item-container">
+              <input id="task-input" name="task-input" type="text" class="add-task-item-input "/>
+              <input type="button" class="add-task-item-button" +/>
+            </div>
+            <input type="button" value="Make Task List" class="make-task-btn toggleable-button" />
+            <input type="button" value="Clear All" class="clear-all-btn toggleable-button" />
+          </form>
+        <button class="filter-urgency-btn toggleable-button" data-urgency="false">Filter by Urgency</button> 
+        </aside>
+        <section class="card-list-area">
+          <p class="card-list-area-notif"></p>
+        </section> 
       </main>
-    <script type='text/javascript' src='todo-list.js'></script>
-    <script type='text/javascript'src='main.js'></script>
+    <script src="todo-list.js"></script>
+    <script src="main.js"></script>
   </body>
 </html>
