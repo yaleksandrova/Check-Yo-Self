@@ -1,254 +1,266 @@
-var addTaskItemButton = document.querySelector('.add-task-item-button');
-var cardArea = document.querySelector('.card-list-area');
-var cardTitle = document.getElementsByClassName('card-list-area__task-card-title');
+var mainCardSection = document.querySelector('.card-list-area');
+var cardTitle = document.getElementsByClassName('task-title');
+var addTaskBtn = document.querySelector('.add-task-item-button');
 var clearAll = document.querySelector('.clear-all-btn');
-var deleteListItemFromSidebar = document.querySelector('.sidebar__insert-list--delete-button');
-var listArea = document.querySelector('.item-list-temp-area');
+var tempArea = document.querySelector('.item-list-temp-area');
 var makeTaskListButton = document.querySelector('.make-task-btn');
-var message = document.querySelector('.card-list-area-notif');
-var taskItemInput = document.querySelector('.add-task-item-input');
+var notification = document.querySelector('.card-list-area-notif');
 var taskTitleInput = document.querySelector('.add-todo-form-input');
-var taskItems = [];
+var taskItemInput = document.querySelector('.add-task-item-input');
+var allTaskItems = [];
+var listItems = document.getElementById('list-items');
 var todoTasks = JSON.parse(localStorage.getItem("todos")) || [];
 
-addTaskItemButton.addEventListener('click', saveAllInputItems);
-cardArea.addEventListener('click', targetTaskButtons);
-clearAll.addEventListener('click', clearEverything);
-listArea.addEventListener('click', deleteTask);
+// Event Listeners
+
+addTaskBtn.addEventListener('click', saveAllInputItems);
+mainCardSection.addEventListener('click', taskButtons);
+clearAll.addEventListener('click', clearSideBar);
+tempArea.addEventListener('click', deleteTask);
 makeTaskListButton.addEventListener('click', saveTask);
-taskItemInput.addEventListener('input', enableDisableButtons);
-taskTitleInput.addEventListener('input', enableDisableButtons);
+taskItemInput.addEventListener('input', toggleButtons);
+taskTitleInput.addEventListener('input', toggleButtons);
 
-
-window.onload = function(){
-  repopulateDataAfterReload();
-  messageToggle();
-  enableDisableButtons();
-};
-
-function messageToggle() {
+function notificationToggle() {
   if (todoTasks.length == 0) {
-    message.classList.remove("hidden") 
+    notification.classList.remove("hidden")
   }
   else {
-    message.classList.add("hidden");
+    notification.classList.add("hidden");
   }
 }
 
-// Sidebar functions
+window.onload = function(){
+  reloadData();
+  notificationToggle();
+  toggleButtons();
+  addTaskBtn.disabled = true;
+};
 
-function enableDisableButtons() {
-  
-  //ternary operator
-  taskItemInput.value == '' ?  addTaskItemButton.disabled = true : addTaskItemButton.disabled = false;
+function toggleButtons() {
+  var task = taskItemInput.value;
+  var title = taskTitleInput.value;
+  // If task item input AND task title AND temp-list-area is empty, disable the Clear All button, else enable it.
+   if(task == '' && title == '' && tempArea.innerText == ''){
+     clearAll.disabled = true;
+  } else {
+     clearAll.disabled = false;
+  }
+  // If task title input is empty, or temp-list-area is empty, disable the Make Task List button, else enable it.
+  if(title == '' || tempArea.innerHTML == ''){
+     makeTaskListButton.disabled = true;
+  } else {
+   makeTaskListButton.disabled = false;
+  }
+// If task item input is empty, disable the Add Task [+] button
+  if(task == '' && tempArea.innerText !== '' ){
 
-  taskTitleInput.value == '' || listArea.innerHTML == '' ? 
-    makeTaskListButton.disabled = true : 
-    makeTaskListButton.disabled = false;
-  
-  taskItemInput.value == '' && taskTitleInput.value == '' && listArea.innerText == '' ? 
-    clearAll.disabled = true : 
-    clearAll.disabled = false;
+    addTaskBtn.disabled = true;
+  } else {
+    addTaskBtn.disabled = false;
+  }
 }
 
 function addItemsToList(newItem) {
   var listHTML = `
-    <li class="sidebar__insert-list item" data-id="${newItem.id}" id="">
-      <img class="sidebar__insert-list--delete-button item" src="images/delete.svg" alt="Delete task from sidebar list"/>
-      <p class="sidebar__insert-list--text item">${newItem.content}</p>
-    <!-- //newItem.content displays the input text -->
-    </li>`
-    listArea.insertAdjacentHTML('beforeend', listHTML);
-  taskItemInput.value = "";
-}
-
-function deleteTask(e) {
-  e.preventDefault();
-  e.target.closest('li').remove();
-}
-
-function deleteAllSidebarListItems() {
-  var removeLiNodes = document.getElementById('list-items');
-  while (removeLiNodes.firstChild) {
-    removeLiNodes.removeChild(removeLiNodes.firstChild);
-  }
+    <li class="add-item" data-id="${newItem.id}" id="">
+    <img class="delete-item" src="images/delete.svg" />
+    <p class="add-item-text" id="content">${newItem.content}</p> </li>`
+    tempArea.insertAdjacentHTML('beforeend', listHTML);
+    taskItemInput.value = "";
 }
 
 function saveAllInputItems() {
   var newItem = new Items(taskItemInput.value);
-  taskItems.push(newItem);
+ //every time someone clicks the [+] button,
+  //that item is added to the allTaskItems array and appended onto the temp-list
+  allTaskItems.push(newItem);
+  //the new Item is saved in this format: {content: "f", done: false, id: 1559708797718}
+  toggleButtons();
+  //this single item is then sent to the additemsToList function where it is added to the temporary area
+  // or sidebar
   addItemsToList(newItem);
-  enableDisableButtons();
+  addTaskBtn.disabled = true;
 }
+//this function deletes a single task from the temporary area
+// when the X is clicked and also deletes it from the array 
+function deleteTask(element) {
+  element.preventDefault();
+  var input = element.target.closest('li').getElementsByTagName('p')[0].innerHTML;
+  //find the element that was deleted and match it with the element inside of allTaskItems array and remove it from there 
+  //so that when the ticket is saved, the deleted item doesn't show up on the card 
+  var noDeletedItems = allTaskItems.filter(function(task){
+    return task.content !== input;   
+  });
+  
+  allTaskItems = noDeletedItems;
+  //remove the task from view 
+  element.target.closest('li').remove();
+}
+//Function removes all of the items in the sidebar one by one . ie while items exist, remove them.
 
-// On sidebar button click population functions 
+function removeAllTempItems() {
+  //from a UL element - a child element is the LI element within it. The first child is the first LI element
+  // so you are checking for as long as there is a first li element, delete the li's
+  while (listItems.firstChild) {
+    listItems.removeChild(listItems.firstChild);
+    }
+}
+// Clear and reset everything including the temp-area-list, input fields, and toggle Make List and Clear All buttons
+function clearSideBar() {
+  //clear user input fields
+  taskItemInput.value = '';
+  taskTitleInput.value = '';
+  removeAllTempItems();
+  toggleButtons();
+  allTaskItems = [];
+  }
 
 function saveTask() {
-  createTodoTask();
-  messageToggle();
-  enableDisableButtons();
+  createTodo();
+  notificationToggle();
+  toggleButtons();
+  addTaskBtn.disabled = true;
 }
-
-function createTodoTask() {
-  var newTodoTask = new Task(taskTitleInput.value, taskItems);
-  todoTasks.push(newTodoTask);
-  newTodoTask.saveToStorage();
-  appendTaskToDOM(newTodoTask);
-  deleteAllSidebarListItems();
-  clearInputFields();
+//this function generates a todo task after the task was saved
+function createTodo() {
+  var newTodo = new Task(taskTitleInput.value, allTaskItems);
+  newTodo.saveToStorage();
+  todoTasks.push(newTodo);
+  //display the task
+  addTaskToDOM(newTodo);
+  //remove all the temporary items from the sidebar
+  removeAllTempItems();
+  //clear User input fields
+  taskItemInput.value = '';
+  taskTitleInput.value = '';
 }
+//function adds todo card to the card list area in main
+function addTaskToDOM(newTodoTask) {
+  var taskUrgency = newTodoTask.urgency;
+  var urgentImage;
+  //determines which image to use depending on the current task's urgency boolean value
+  if(taskUrgency){
+    urgentImage ='images/urgent-active.svg';
+  }else {
+    urgentImage ='images/urgent.svg';
+  }
 
-function appendTaskToDOM(newTodoTask) {
-  var card = `
-  <div class="card-list-area__task-card ${newTodoTask.urgency}" id="task-card" data-id="${newTodoTask.id}">
-    <h3 class="card-list-area__task-card-title ${newTodoTask.urgency}">${newTodoTask.title}</h3>
-    <div class="card-list-area__task-card__items ${newTodoTask.urgency}">
-      <ul class="card-list-area__populate">
-      ${appendTaskToTask(newTodoTask)}
+  var singleCard = `<div class="task-card ${taskUrgency}" data-id="${newTodoTask.id}">
+    <h2 class="task-title ${taskUrgency}">${newTodoTask.title}</h2>
+    <div class="task-card-items ${taskUrgency}">
+      <ul class="task-card-populate">
+      ${addTaskToCard(newTodoTask)}
       </ul>
     </div>
-    <div class="card-list-area__task-card__footer">
-      <div class="card-list-area__task-card__footer--left">
-        <img class="card-list-area__task-card__footer--urgency-button" id="urgent-img-${newTodoTask.urgency}" src="${newTodoTask.urgency ? 'images/urgent-active.svg' : 'images/urgent.svg'}">
-        <p id="urgent-text-${newTodoTask.urgency}">URGENT</p>
+    <div class="task-card-footer">
+      <div class="task-card-footer-left">
+        <img class="task-card-urgency-btn" id="urgent-img-${taskUrgency}" src="${urgentImage}">
+        <p id="urgent-text-${taskUrgency}">URGENT</p>
       </div>
-      <div class="card-list-area__task-card__footer--right">
-        <img class="card-list-area__task-card__footer--delete-button" src="images/delete.svg">
+      <div class="task-card-footer-left">
+        <img class="task-card-delete-btn" src="images/delete.svg">
         <p>DELETE</p>
       </div>
     </div>
-  </div>
-  `;
-  
-  cardArea.insertAdjacentHTML('afterbegin', card)
-  taskItems = [];
+  </div> `;
+
+  mainCardSection.insertAdjacentHTML('afterbegin', singleCard)
+  allTaskItems = [];
 }
 
-function appendTaskToTask(newTodoTask) {
-  var taskListIteration = '';
-  
+//adds each task that the user added in the sidebar to the card
+function addTaskToCard(newTodoTask) {
+  var checkboxImage;
+  var taskListTotal = '';
+  var taskComplete;
   for (var i = 0; i < newTodoTask.taskList.length; i++){
-    taskListIteration += `
-      <li class="card-list-area__populate--li">
-
-<!-- //change the done method --> 
-        <img class="card__task-delete" src=${newTodoTask.taskList[i].done ? 'images/checkbox-active.svg' : 'images/checkbox.svg'} alt="Delete task from card" data-id=${newTodoTask.taskList[i].id} id="index ${i}"/>
-        <p id="check-off-${newTodoTask.taskList[i].done}">${newTodoTask.taskList[i].content}</p>
+    //grabs the done boolean value from to_do list.js
+    taskComplete = newTodoTask.taskList[i].done;
+    //determines which image to use depending on if the task is complete
+     if(taskComplete){
+      checkboxImage = 'images/checkbox-active.svg';
+    }else {
+      checkboxImage = 'images/checkbox.svg';
+    }
+    //adding every list on top of the other
+    taskListTotal += `
+       <li class="task-card-populate">
+        <img class="task-delete" src="${checkboxImage}" data-id=${newTodoTask.taskList[i].id} id="index ${i}"/>
+        <p id="check-off-${taskComplete}">${newTodoTask.taskList[i].content}</p>
       </li>
       `
-  } 
-  
-  return taskListIteration;
+  }
+  return taskListTotal;
 }
-
-function repopulateDataAfterReload() {
-  var oldTodoTasks = todoTasks;
-  var newInstances = oldTodoTasks.map(function(datum) {
-    datum = new Task(datum.title, datum.taskList, datum.urgency, datum.id);
-    return datum;
+//reloads task data on the page
+function reloadData() {
+//iterates over the old, tasks before loading and creates instances of a new task
+var preLoadTodoTasks = todoTasks;
+  //saving all of the new tasks into instances array
+   var instances = preLoadTodoTasks.map(function(task) {
+    task = new Task(task.title, task.taskList, task.urgency, task.id);
+    return task;
   });
-  
-  todoTasks = newInstances;
-  restoreTasks(todoTasks);
+  todoTasks = instances;
+  showReloadedTasks(todoTasks);
 }
 
-function restoreTasks(todoTasks) {
-  todoTasks.forEach(function(datum) {
-    appendTaskToDOM(datum);
+//display the tasks after reload
+function showReloadedTasks(todoTasks) {
+  todoTasks.forEach(function(data) {
+    addTaskToDOM(data);
   });
 }
 
-// Target card buttons functions 
-
-function targetTaskButtons(e) {
-  if (e.target.className === 'card-list-area__task-card__footer--urgency-button') {
-    targetTaskUrgent(e);
+// Target all of a card's buttons and create functionality for them according to their class names
+function taskButtons(element) {
+  //grab the task card
+  var card = element.target.closest('.task-card');
+  // save the card's id from its data id attribute
+  var cardId = card.dataset.id;
+  //find the index of the current card inside of the todoTasks array and save it
+  var index = todoTasks.findIndex(function(task) {
+    return task.id == cardId;});
+  //if the element has a class of task card delete btn then evaluate this
+  if (element.target.className === 'task-card-urgency-btn') {
+    //target the card we want to make it urgent
+    var cardToChangeUrgency = todoTasks[index];
+    //updateToDo comes from todo_list.js and it changes the current urgency to the oppposite
+    cardToChangeUrgency.updateToDo();
+    mainCardSection.innerHTML = '';
+    reloadData();
   }
-  if (e.target.className === 'card-list-area__task-card__footer--delete-button') {
-    targetTaskForDeletion(e);
-  }
-  if (e.target.className === 'card__task-delete') {
-    targetListItem(e);
-  }
-  messageToggle();
-}
-
-function targetTaskUrgent(e) {
-  var card = e.target.closest('.card-list-area__task-card');
-  var index = findTaskIndex(card);
-  makeTaskDataUrgent(index);
-}
-
-function makeTaskDataUrgent(index) {
-  var cardToMakeUrgent = todoTasks[index];
-  cardToMakeUrgent.updateToDo();
-  cardArea.innerHTML = '';
-  repopulateDataAfterReload();
-}
-
-function targetTaskForDeletion(e) {
-  var card = e.target.closest('.card-list-area__task-card');
-  var index = findTaskIndex(card);
-  activateDeleteBtn(index);
-}
-
-// Delete buttons 
-
-function activateDeleteBtn(index) {
-  var deleteObj = todoTasks[index].taskList;
-  var newArray = deleteObj.filter(function(element) {
+  //if the element has a class of task card delete btn then evaluate this
+  if (element.target.className === 'task-card-delete-btn') {
+    var deleteObject = todoTasks[index].taskList;
+    var completed = deleteObject.filter(function(element) {
+    //return only the elements that have an attribute of done. Done comes from the to_do list.js file in the constructor
     return element.done === true;
   });
-  
-  if (newArray.length === deleteObj.length) {
-    deleteTaskData(index);
+
+  if (completed.length === deleteObject.length) {
+    todoTasks[index].deleteFromStorage(index);
+    mainCardSection.innerHTML = '';
+    reloadData();
+  } else {
+    alert('Complete the tasks before deleting the TODO Item.')
   }
 }
+  //if the element has a class name of task delete then do the following to delete the task
+  if (element.target.className === 'task-delete') {
 
-function deleteTaskData(index) {
-  todoTasks[index].deleteFromStorage(index);
-  cardArea.innerHTML = '';
-  repopulateDataAfterReload();
-}
-
-function findTaskIndex(card) {
-  var cardId = card.dataset.id;
-   
-  //return refactor 
-  return todoTasks.findIndex(function(item) {
-    return item.id == cardId;
-  });
-}
-
-function findItemIndex(todoObject, taskId) {
-  return todoObject.taskList.findIndex(function(item) {
+    //grab the taskId from the data attribute
+    var taskId = element.target.dataset.id;
+    var todo = todoTasks[index];
+    var currentTaskIndex = todo.taskList.findIndex(function(item) {
     return item.id == taskId;
   });
-}
 
-function targetListItem(e) {
-  var taskId = e.target.dataset.id;
-  var card = e.target.closest('.card-list-area__task-card');
-  
-  var index = findTaskIndex(card);
-  var todoObject = todoTasks[index];
-  var specificTaskIndex = findItemIndex(todoObject, taskId);
-  todoObject.updateTask(specificTaskIndex);
-  todoObject.saveToStorage();
-  cardArea.innerHTML = '';
-  repopulateDataAfterReload();
-}
-
-// Global clearing functions 
-
-function clearEverything(e) {
-  deleteAllSidebarListItems();
-  clearInputFields();
-  taskItems = [];
-  enableDisableButtons();
-}
-
-function clearInputFields() {
-  taskItemInput.value = '';
-  taskTitleInput.value = '';
+    todo.updateTask(currentTaskIndex);
+    todo.saveToStorage();
+    mainCardSection.innerHTML = '';
+    reloadData();
+  }
+  notificationToggle();
 }

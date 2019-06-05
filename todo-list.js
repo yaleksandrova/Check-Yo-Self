@@ -31,6 +31,6 @@ class Items {
     this.content = content;
     this.done = false;
     this.id = Date.now();
-    this.doneImg;
+    this.doneImage;
   }
 }

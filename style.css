@@ -105,6 +105,7 @@ header {
   border-bottom-left-radius: 3px;
   border-right: 0;
   border-top-left-radius: 3px;
+  /* border: 1px solid #1f1f3d; */
   cursor: pointer;
   height: 40px;
   padding: 5px;
@@ -130,7 +131,7 @@ main {
   width: 93%;
 }
 
-.card-list-area__task-card.false {
+.task-card.false {
   background-color: #fafdff;
   border: 2px solid #c7d3d8;
   display: inline-block;
@@ -140,7 +141,7 @@ main {
   width:  100%;
 }
 
-.card-list-area__task-card.true {
+.task-card.true {
   background-color: #ffe89d;
   border: 2px solid #ffc303;
   display: inline-block;
@@ -151,7 +152,7 @@ main {
 }
 
 .task-title,
-.card-list-area__task-card__items {
+.task-card-items {
   border-bottom: 1px solid #c7d3d8;
   color: #1f1f3d;
   font-size: 20px;
@@ -163,7 +164,7 @@ main {
 }
 
 .task-title.true,
-.card-list-area__task-card__items.true {
+.task-card-items.true {
   border-bottom: 1px solid #ffc303;
 
 }
@@ -177,13 +178,13 @@ main {
   font-weight: 700;
 }
 
-.card-list-area__task-card__footer {
+.task-card-footer {
   display: flex;
   justify-content: space-between;
   padding: 5px;
 }
 
-.card-list-area__task-card__footer p {
+.task-card-footer p {
   color: #3c6577;
   padding-top: 5px;
 }
@@ -192,30 +193,32 @@ main {
   color: #b23a25;
 }
 
-.card-list-area__task-card__footer--left,
-.card-list-area__task-card__footer--right {
+.task-card-footer-left,
+.task-card-footer-right {
   align-items: center;
   display: flex;
   flex-direction: column;
   font-size: 12px;
 }
 
-.card-list-area__task-card__footer--urgency-button,
-.card-list-area__task-card__footer--delete-button,
-.sidebar__insert-list--delete-button {
+.task-card-urgency-btn,
+.task-card-delete-btn,
+.delete-item {
   height: 25px;
   width: 25px;
 }
 
-.card__task-delete {
+.task-delete {
   height: 20px;
   margin-right: 5px;
   width: 20px;
 }
 
-.card-list-area__populate--li {
+
+.task-card-populate {
   margin: 10px 0;
 }
+
 
 .card-list-area-notif {
   color: #1f1f3d;
@@ -312,57 +315,12 @@ main {
   width: 12px;
 }
 
-.sidebar__insert-list {
+.add-item {
   margin: 10px;
 }
 
-.sidebar__insert-list--text {
+.add-item-text {
   color: #C8D3D9;
   font-size: 24px;
   margin-left: 10px;
-}
-
-
-/*-----------Media Query----------*/
-
-@media screen and (max-width: 480px) {
-  
-  header {
-    display: flex;
-    flex-direction: column;
-    height: 140px;
-    justify-content: center;
-    width: 100%;
-    position: static; 
-  }
-  
-  .header-title {
-    margin: 10px 10px;
-  }
-
-  main {
-    grid-template-columns: auto;
-    height: 95vh;
-    margin-top: 0px;
-    align-items: center;
-  }
-
-  .add-todo-form {
-    margin-top: 10px;
-  }
-  
-  .add-task-item-container {
-    display: flex;
-    flex-direction: row-reverse;
-  }
-
-  .add-task-item-input {
-    width: 100%;
-  }
-
-  .card-list-area {
-    display: grid;
-    align-items: center;
-    width: 92%;
-  }
 }
