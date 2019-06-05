@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
   <head>
     <title>Check Yo'Self</title>
@@ -42,5 +42,52 @@
       </main>
     <script type='text/javascript' src='todo-list.js'></script>
     <script type='text/javascript'src='main.js'></script>
+  </body>
+</html> -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>CHECK YO' SELF!</title>
+    <meta name="description" content="Check Yo' Self"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css"/>
+    <link rel="stylesheet" href="style.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+  </head>
+    <body>
+      <header>
+        <h1 class="header-title">CHECK <span class="header-title-yo">YO'</span> SELF</h1>
+        <form class="header-form">
+        <img class="search-img" src="images/search.svg">
+          <input type="text" placeholder="Search" class="search-input "> 
+        </form>
+      </header>
+      <main>
+        <aside class="sidebar">
+          <form class="add-todo-form">
+            <label for="title-input" class="add-todo-form-title">Task Title</label>
+            <input id="title-input" name="title-input" type="text" class="add-todo-form-input " />
+            <ul class="item-list-temp-area" id="list-items">
+      TEMP STAGING AREA FOR ITEM LIST       
+            </ul>
+            <label for="task-input" class="add-task-item-lbl">Task Item</label>
+            <div class="add-task-item-container">
+              <input id="task-input" name="task-input" type="text" class="add-task-item-input "/>
+              <input type="button" class="add-task-item-button" />
+            </div>
+            <input type="button" value="Make Task List" class="make-task-btn toggleable-button" />
+            <input type="button" value="Clear All" class="clear-all-btn toggleable-button" />
+          </form>
+        <button class="filter-urgency-btn toggleable-button" data-urgency="false">Filter by Urgency</button> 
+        </aside>
+        <section class="card-list-area">
+          <p class="card-list-area-notif"></p>
+        </section> 
+      </main>
+    <script src="todo_list.js"></script>
+    <script src="main.js"></script>
   </body>
 </html>
