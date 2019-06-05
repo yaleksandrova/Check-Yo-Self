@@ -11,8 +11,6 @@ var taskTitleInput = document.querySelector('.add-todo-form-input');
 var taskItems = [];
 var todoTasks = JSON.parse(localStorage.getItem("todos")) || [];
 
-// Event Listeners
-
 addTaskItemButton.addEventListener('click', saveAllInputItems);
 cardArea.addEventListener('click', targetTaskButtons);
 clearAll.addEventListener('click', clearEverything);
@@ -78,35 +76,25 @@ function deleteAllSidebarListItems() {
 
 function saveAllInputItems() {
   var newItem = new Items(taskItemInput.value);
-  
   taskItems.push(newItem);
   addItemsToList(newItem);
-  
   enableDisableButtons();
 }
 
 // On sidebar button click population functions 
 
 function saveTask() {
-  
   createTodoTask();
-  
   messageToggle();
-  
   enableDisableButtons();
 }
 
 function createTodoTask() {
   var newTodoTask = new Task(taskTitleInput.value, taskItems);
-  
   todoTasks.push(newTodoTask);
-  
   newTodoTask.saveToStorage();
-  
   appendTaskToDOM(newTodoTask);
-  
   deleteAllSidebarListItems();
-  
   clearInputFields();
 }
 
@@ -214,9 +202,7 @@ function activateDeleteBtn(index) {
   
   if (newArray.length === deleteObj.length) {
     deleteTaskData(index);
-  } else {
-    alert('Complete the tasks before deleting the TODO Item.')
-  }
+  } 
 }
 
 function deleteTaskData(index) {

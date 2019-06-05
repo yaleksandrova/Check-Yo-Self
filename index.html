@@ -1,50 +1,3 @@
-<!-- <!DOCTYPE html>
-<html>
-  <head>
-    <title>Check Yo'Self</title>
-      <link rel="stylesheet" type= "text/css" href= "reset.css">
-      <link rel="stylesheet" type= "text/css" href= "style.css">
-      <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700&display=swap" 
-      rel="stylesheet">
-  </head>
-    <body>
-      <header>
-        <h1>CHECK <span>YO'</span> SELF</h1>
-        <form class="search-form">
-          <input type="text" class="search-input" placeholder="Search"/>
-          <img src="images/search.svg" alt="search-icon" class="img-search" /></button>
-        </form>
-      </header>
-
-      <nav class="nav">
-          <label class="title-label">Task Title
-          <input type="text" class="title-input">
-          </label>
-        <section class="input-container" id="input-container">
-        </section>
-        <section class="input-container">
-          <label class="item-label">Task Item
-          <div class="item-container">
-          <input type="text" class="item-input">
-          <button class="plus-btn" id="plus-btn">+</button>
-          </div>
-          </label>
-          <button class="make-task-btn" >Make Task List</button>
-          <button class="clear-all-btn" disabled="true">Clear All</button>
-        </section>
-        <section class="filter-section">
-          <button class="filter-btn">Filter By Urgency</button>
-        </section> 
-      </nav>
-      <main>
-        <section class="card-section masonry">
-        </section>
-      </main>
-    <script type='text/javascript' src='todo-list.js'></script>
-    <script type='text/javascript'src='main.js'></script>
-  </body>
-</html> -->
-
 <!DOCTYPE html>
 <html>
   <head>
@@ -70,13 +23,12 @@
           <form class="add-todo-form">
             <label for="title-input" class="add-todo-form-title">Task Title</label>
             <input id="title-input" name="title-input" type="text" class="add-todo-form-input " />
-            <ul class="item-list-temp-area" id="list-items">
-      TEMP STAGING AREA FOR ITEM LIST       
+            <ul class="item-list-temp-area" id="list-items">     
             </ul>
             <label for="task-input" class="add-task-item-lbl">Task Item</label>
             <div class="add-task-item-container">
               <input id="task-input" name="task-input" type="text" class="add-task-item-input "/>
-              <input type="button" class="add-task-item-button" />
+              <input type="button" class="add-task-item-button" +/>
             </div>
             <input type="button" value="Make Task List" class="make-task-btn toggleable-button" />
             <input type="button" value="Clear All" class="clear-all-btn toggleable-button" />
@@ -87,7 +39,7 @@
           <p class="card-list-area-notif"></p>
         </section> 
       </main>
-    <script src="todo_list.js"></script>
+    <script src="todo-list.js"></script>
     <script src="main.js"></script>
   </body>
 </html>
