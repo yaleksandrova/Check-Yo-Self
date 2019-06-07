@@ -123,11 +123,11 @@ function createTodo() {
 
 function addTaskToDOM(newTodoTask) {
   var taskUrgency = newTodoTask.urgency;
-  var urgentImage;
+
   if(taskUrgency){
-    urgentImage ='images/urgent-active.svg';
+  var urgentImage ='images/urgent-active.svg';
   }else {
-    urgentImage ='images/urgent.svg';
+  var urgentImage ='images/urgent.svg';
   }
 
   var singleCard = `<div class="task-card ${taskUrgency}" data-id="${newTodoTask.id}">
@@ -156,18 +156,17 @@ function addTaskToDOM(newTodoTask) {
 function addTaskToCard(newTodoTask) {
   var checkboxImage;
   var taskListTotal = '';
-  var taskComplete;
   for (var i = 0; i < newTodoTask.taskList.length; i++){
-    taskComplete = newTodoTask.taskList[i].done;
-   
-     if(taskComplete){
+  var  taskComplete = newTodoTask.taskList[i].done;
+  
+    if(taskComplete){
       checkboxImage = 'images/checkbox-active.svg';
     }else {
       checkboxImage = 'images/checkbox.svg';
     }
   
     taskListTotal += `
-       <li class="task-card-populate">
+      <li class="task-card-populate">
         <img class="task-delete" src="${checkboxImage}" data-id=${newTodoTask.taskList[i].id} id="index ${i}"/>
         <p id="check-off-${taskComplete}">${newTodoTask.taskList[i].content}</p>
       </li>
@@ -177,9 +176,8 @@ function addTaskToCard(newTodoTask) {
 }
 
 function reloadData() {
-var preLoadTodoTasks = todoTasks;
-  //saving all of the new tasks into instances array
-   var instances = preLoadTodoTasks.map(function(task) {
+  var preLoadTodoTasks = todoTasks;
+  var instances = preLoadTodoTasks.map(function(task) {
     task = new Task(task.title, task.taskList, task.urgency, task.id);
     return task;
   });
@@ -198,6 +196,8 @@ function taskButtons(element) {
   var cardId = card.dataset.id;
   var index = todoTasks.findIndex(function(task) {
     return task.id == cardId;});
+
+    
   if (element.target.className === 'task-card-urgency-btn') {
     var cardToChangeUrgency = todoTasks[index];
     cardToChangeUrgency.updateToDo();
@@ -206,12 +206,12 @@ function taskButtons(element) {
   }
   
   if (element.target.className === 'task-card-delete-btn') {
-    var deleteObject = todoTasks[index].taskList;
-    var completed = deleteObject.filter(function(element) {
+    var allTasksInParticularCard = todoTasks[index].taskList;
+    var completed = allTasksInParticularCard.filter(function(element) {
     return element.done === true;
   });
 
-  if (completed.length === deleteObject.length) {
+  if (completed.length === allTasksInParticularCard.length) {
     todoTasks[index].deleteFromStorage(index);
     mainCardSection.innerHTML = '';
     reloadData();
@@ -235,3 +235,43 @@ function taskButtons(element) {
   }
   notificationToggle();
 }
+
+// Title Filter  //
+
+var searchInput = document.querySelector('.search-input');
+searchInput.addEventListener('input', filterTodos);
+
+function filterTodos(e) {
+  var searchTextField = e.target.value.toLowerCase();
+  var results = todoTasks.filter(function(task) {
+    return task.title.toLowerCase().includes(searchTextField);
+  })
+
+  mainCardSection.innerHTML = '';
+  results.forEach(function(task) {
+    addTaskToDOM(task);
+  })
+};
+
+// Urgent Filter //
+
+
+var filterUrgencyBtn = document.querySelector('.filter-urgency-btn');
+filterUrgencyBtn.addEventListener('click', filterUrgency);
+
+function filterUrgency() {
+  filterUrgencyBtn.dataset.urgency === "true";
+
+  toggleButtons();
+
+  var filterUrgencyResults = todoTasks.filter(function(task) {
+    return task.urgency === true;
+  })
+
+  mainCardSection.innerHTML = '';
+  filterUrgencyResults.forEach(function(card) {
+    addTaskToDOM(card);
+  })
+};
+
+
